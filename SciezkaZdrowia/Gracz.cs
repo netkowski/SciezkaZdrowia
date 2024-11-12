@@ -17,63 +17,87 @@ namespace SciezkaZdrowia
       
        private List<Rectangle> kolizje;
        private Rectangle Obszar_gracza;
+       private Vector2 Przyspieszenie;
+       private bool skok,skok2,lewo,prawo;
        
         public Gracz(Texture2D tekstura, Vector2 pozycja, List<Rectangle>kolizje) : base(tekstura,pozycja){
            this.kolizje = kolizje;
         }
+
 public override void Update(GameTime gameTime)
 {
-    
-    
-    base.Update(gameTime); 
-   
-   Obszar_gracza = new Rectangle(
-    (int)(pozycja.X*Game1.skalaX),
-    (int)(pozycja.Y*Game1.skalaY), 
-    (int)(60*Game1.skalaX),
-    (int)(101.3*Game1.skalaY));
+    Aktualizacja_Kolizji();
+    Obszar_gracza = new Rectangle(
+        (int)(pozycja.X * Game1.skalaX),
+        (int)(pozycja.Y * Game1.skalaY), 
+        (int)(60 * Game1.skalaX),
+        (int)(101.3 * Game1.skalaY)
+    );
 
-    if (Keyboard.GetState().IsKeyDown(Keys.Right))
+    // Ruch w poziomie
+    if ((Keyboard.GetState().IsKeyDown(Keys.Right))&&prawo)
     {
-        pozycja.X = pozycja.X + 3;
-        Obszar_gracza.X = (int)(pozycja.X*Game1.skalaX);
-        if (Kolizja(kolizje)){
-            pozycja.X = pozycja.X -3;
-            Obszar_gracza.X = (int)(pozycja.X*Game1.skalaX);
-        }
+        Przyspieszenie.X = 3;
+    }
+    else if ((Keyboard.GetState().IsKeyDown(Keys.Left)&&lewo))
+    {
+        Przyspieszenie.X = -3;
+        
+    }
+    else
+    {
+        Przyspieszenie.X = 0;
+        lewo = true;
+        prawo = true;
     }
 
-    if (Keyboard.GetState().IsKeyDown(Keys.Left))
-    {
-        pozycja.X = pozycja.X - 3;
-        Obszar_gracza.X = (int)(pozycja.X*Game1.skalaX);
-        if(Kolizja(kolizje)){
-            pozycja.X = pozycja.X +3;
-            Obszar_gracza.X = (int)(pozycja.X*Game1.skalaX);
-        }
+    float pozycjaX_przed_kolizja = pozycja.X;
+    pozycja.X += Przyspieszenie.X;
+    Obszar_gracza.X = (int)(pozycja.X*Game1.skalaX);
 
+    if (Kolizja(kolizje))
+    {
+        pozycja.X = pozycjaX_przed_kolizja;
+        lewo = false; 
+        prawo = false;
     }
 
-    if (Keyboard.GetState().IsKeyDown(Keys.Up))
+    if (Keyboard.GetState().IsKeyDown(Keys.Up) && skok && skok2)
     {
-        pozycja.Y = pozycja.Y - 3;
-        Obszar_gracza.Y = (int)(pozycja.Y*Game1.skalaY);
-        if(Kolizja(kolizje)){
-            pozycja.Y = pozycja.Y +3;
-            Obszar_gracza.Y = (int)(pozycja.Y*Game1.skalaY);
-        }
+        Przyspieszenie.Y = -12;
+        skok = skok2 = false;
+    }
+    if (Keyboard.GetState().IsKeyUp(Keys.Up))
+    {
+        skok2 = true;
     }
 
-    if (Keyboard.GetState().IsKeyDown(Keys.Down))
+    // Grawitacja
+    Przyspieszenie.Y += 1f;
+    if (Przyspieszenie.Y > 25f)
     {
-        pozycja.Y = pozycja.Y + 3;
-        Obszar_gracza.Y = (int)(pozycja.Y*Game1.skalaY);
-        if(Kolizja(kolizje)){
-            pozycja.Y = pozycja.Y -3;
-            Obszar_gracza.Y = (int)(pozycja.Y*Game1.skalaY);
-        }
+        Przyspieszenie.Y = 25f;
     }
+
+    float pozycjaY_przed_kolizja = pozycja.Y;
+    pozycja.Y += Przyspieszenie.Y;
+    Obszar_gracza.Y = (int)(pozycja.Y*Game1.skalaY);
+
+    if (Kolizja(kolizje))
+    {
+        if (Przyspieszenie.Y > 0 && pozycjaY_przed_kolizja < pozycja.Y)
+        {
+            skok = true; 
+        }
+
+        Przyspieszenie.Y = 0;
+        pozycja.Y = pozycjaY_przed_kolizja;
+    }
+
+    base.Update(gameTime);
 }
+
+
 
 private void Aktualizacja_Kolizji(){
     kolizje.Clear();
