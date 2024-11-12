@@ -101,10 +101,10 @@ public class Game1 : Game
         }
        gracz = new Gracz(animacja[ktora_klatka], new Vector2(200,200), kolizje);
        Texture2D tekstura_wroga = Content.Load<Texture2D>("Wrog");
-       //wrogowie.Add(new Wrog(tekstura_wroga,new Vector2(100,200)));
-       //wrogowie.Add(new Wrog(tekstura_wroga,new Vector2(100,300)));
-       //wrogowie.Add(new Wrog(tekstura_wroga,new Vector2(100,400)));
-       //wrogowie.Add(new Wrog(tekstura_wroga,new Vector2(100,100)));
+       wrogowie.Add(new Wrog(tekstura_wroga,new Vector2(100,200)));
+       wrogowie.Add(new Wrog(tekstura_wroga,new Vector2(100,300)));
+       wrogowie.Add(new Wrog(tekstura_wroga,new Vector2(100,400)));
+       wrogowie.Add(new Wrog(tekstura_wroga,new Vector2(100,100)));
        
         
     }
@@ -114,7 +114,6 @@ public class Game1 : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        // TODO: Add your update logic here
         List<Obiekt> ZebraneObiekty = new();
         foreach(var obiekt in wrogowie){
             obiekt.Update(gameTime);
@@ -166,9 +165,6 @@ public class Game1 : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
-
-        // TODO: Add your drawing code here
-
 
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
         _spriteBatch.Draw(tlo,new Rectangle (0,0,(int)(1280*Game1.skalaX),(int)(1024*Game1.skalaY)), Color.White);

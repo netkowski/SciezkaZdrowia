@@ -54,3 +54,4 @@
 /home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/Klatka_1.xnb
 /home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/box.xnb
 /home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/tlo.xnb
+/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/obj/Debug/net8.0/SciezkaZdrowia.sourcelink.json
