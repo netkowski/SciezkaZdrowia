@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "*.mgcb": "mgcb-editor"
+    },
+    "terminal.integrated.env.linux":{
+        "MGCB_EDITOR":"mgcb-editor"
+    },
+    "terminal.integrated.automationProfile.windows": {
+        
+    }
+}
