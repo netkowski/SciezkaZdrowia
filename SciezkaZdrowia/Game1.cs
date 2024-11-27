@@ -83,9 +83,14 @@ public class Game1 : Game
         wrogowie = new();
         // TODO: use this.Content to load your game content here
         tlo = Content.Load<Texture2D>("tlo");
-       animacja = new Texture2D[2]; 
-       animacja[0] = Content.Load<Texture2D>("Klatka_0");  
-       animacja[1] = Content.Load<Texture2D>("Klatka_1");  
+       animacja = new Texture2D[6]; 
+       animacja[0] = Content.Load<Texture2D>("front1");  
+       animacja[1] = Content.Load<Texture2D>("front2"); 
+       animacja[2] = Content.Load<Texture2D>("lewo1");  
+       animacja[3] = Content.Load<Texture2D>("lewo2");  
+       animacja[4] = Content.Load<Texture2D>("prawo1");  
+       animacja[5] = Content.Load<Texture2D>("prawo2");   
+
        skrzynia = Content.Load<Texture2D>("box");
 
        List<Rectangle> kolizje = new List<Rectangle>();
@@ -128,13 +133,26 @@ public class Game1 : Game
         foreach(var obiekt in ZebraneObiekty){
             wrogowie.Remove(obiekt);
         }
-    
         licznik++;
-        if (licznik > 30){
+        if (licznik > 60){
             licznik = 0;
-            ktora_klatka++;
-            if (ktora_klatka>1){
-                ktora_klatka = 0;
+        }
+        if (Gracz.kierunek == 0){
+            ktora_klatka = 0;
+            if (licznik > 30){
+                ktora_klatka = 1;
+            }
+        }
+        if (Gracz.kierunek == 1){
+            ktora_klatka = 2;
+            if (licznik > 30){
+                ktora_klatka = 3;
+            }
+        }
+        if (Gracz.kierunek == 2){
+            ktora_klatka = 4;
+            if (licznik > 30){
+                ktora_klatka = 5;
             }
         }
 

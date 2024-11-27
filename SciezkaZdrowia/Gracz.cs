@@ -15,7 +15,10 @@ namespace SciezkaZdrowia
 {
     internal class Gracz : Obiekt{
       
+    
        private List<Rectangle> kolizje;
+       public static int kierunek;
+       private int poprzedni_kierunek;
        private Rectangle Obszar_gracza;
        private Vector2 Przyspieszenie;
        private bool skok,skok2,lewo,prawo;
@@ -42,15 +45,19 @@ public override void Update(GameTime gameTime)
         (int)(0.8*Game1.rozmiar_bloku * Game1.skalaX),
         (int)(1.5*Game1.rozmiar_bloku* Game1.skalaY)
     );
-
+    
     // Ruch w poziomie
     if ((Keyboard.GetState().IsKeyDown(Keys.Right))&&prawo)
     {
-        Przyspieszenie.X = 3;
+        Przyspieszenie.X = 5;
+        kierunek = 2;
+        poprzedni_kierunek = kierunek;
     }
     else if ((Keyboard.GetState().IsKeyDown(Keys.Left)&&lewo))
     {
-        Przyspieszenie.X = -3;
+        Przyspieszenie.X = -4;
+        kierunek = 1;
+        poprzedni_kierunek = kierunek;
         
     }
     else
@@ -58,10 +65,13 @@ public override void Update(GameTime gameTime)
         Przyspieszenie.X = 0;
         lewo = true;
         prawo = true;
+        kierunek = 0;
+        poprzedni_kierunek = kierunek;
     }
 
     float pozycjaX_przed_kolizja = pozycja.X;
     pozycja.X += Przyspieszenie.X;
+    
     Obszar_gracza.X = (int)(pozycja.X*Game1.skalaX);
 
     if (Kolizja(kolizje))
@@ -69,6 +79,8 @@ public override void Update(GameTime gameTime)
         pozycja.X = pozycjaX_przed_kolizja;
         lewo = false; 
         prawo = false;
+        kierunek = 0;
+        
     }
 
     if (Keyboard.GetState().IsKeyDown(Keys.Up) && skok && skok2)
@@ -102,8 +114,9 @@ public override void Update(GameTime gameTime)
         Przyspieszenie.Y = 0;
         pozycja.Y = pozycjaY_przed_kolizja;
     }
-
+    
     base.Update(gameTime);
+    
 }
 
 
