@@ -20,6 +20,7 @@ public class Game1 : Game
 {
     public static float skalaX;
     public static float skalaY;
+    public static float rozmiar_bloku = 64;
     
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
@@ -61,7 +62,7 @@ public class Game1 : Game
     }
     protected override void Initialize()
     {
-        // TODO: Add your initialization logic here
+        
         _graphics.PreferredBackBufferWidth = 1280;
         _graphics.PreferredBackBufferHeight = 1024;
         this.Window.AllowUserResizing = true;
@@ -91,20 +92,22 @@ public class Game1 : Game
         foreach (var tekstura in mapa)
         {
             Rectangle skrzyniaObszar = new Rectangle(
-                (int)(tekstura.Key.X * 64 * Game1.skalaX),
-                (int)(tekstura.Key.Y * 64 * Game1.skalaY),
-                (int)(64 * Game1.skalaX),
-                (int)(64 * Game1.skalaY)
+                (int)(tekstura.Key.X * rozmiar_bloku * Game1.skalaX),
+                (int)(tekstura.Key.Y * rozmiar_bloku * Game1.skalaY),
+                (int)(rozmiar_bloku * Game1.skalaX),
+                (int)(rozmiar_bloku * Game1.skalaY)
             );
             
             kolizje.Add(skrzyniaObszar);
         }
        gracz = new Gracz(animacja[ktora_klatka], new Vector2(200,200), kolizje);
-       Texture2D tekstura_wroga = Content.Load<Texture2D>("Wrog");
-       wrogowie.Add(new Wrog(tekstura_wroga,new Vector2(100,200)));
-       wrogowie.Add(new Wrog(tekstura_wroga,new Vector2(100,300)));
-       wrogowie.Add(new Wrog(tekstura_wroga,new Vector2(100,400)));
-       wrogowie.Add(new Wrog(tekstura_wroga,new Vector2(100,100)));
+       Texture2D tekstura_wroga = Content.Load<Texture2D>("alkohol");
+       wrogowie.Add(new Wrog(tekstura_wroga,new Vector2(rozmiar_bloku,3*rozmiar_bloku)));
+       wrogowie.Add(new Wrog(tekstura_wroga,new Vector2(rozmiar_bloku,4*rozmiar_bloku)));
+       wrogowie.Add(new Wrog(tekstura_wroga,new Vector2(2*rozmiar_bloku,5*rozmiar_bloku)));
+       wrogowie.Add(new Wrog(tekstura_wroga,new Vector2(2*rozmiar_bloku,2*rozmiar_bloku)));
+       Texture2D tekstura_wody = Content.Load<Texture2D>("woda");
+       wrogowie.Add(new Wrog(tekstura_wody,new Vector2(10*rozmiar_bloku,12*rozmiar_bloku)));
        
         
     }
@@ -174,10 +177,10 @@ public class Game1 : Game
         }
         foreach (var tekstura in mapa){
             Rectangle dest = new (
-                (int)(tekstura.Key.X * 64*Game1.skalaX),
-                (int)(tekstura.Key.Y * 64*Game1.skalaY),
-                (int)(64*Game1.skalaX),
-                (int)(64*Game1.skalaY)
+                (int)(tekstura.Key.X * rozmiar_bloku*Game1.skalaX),
+                (int)(tekstura.Key.Y * rozmiar_bloku*Game1.skalaY),
+                (int)(rozmiar_bloku*Game1.skalaX),
+                (int)(rozmiar_bloku*Game1.skalaY)
             );
             _spriteBatch.Draw(skrzynia,dest,Color.White);
         }

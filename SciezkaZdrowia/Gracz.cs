@@ -19,7 +19,16 @@ namespace SciezkaZdrowia
        private Rectangle Obszar_gracza;
        private Vector2 Przyspieszenie;
        private bool skok,skok2,lewo,prawo;
-       
+       public override Rectangle obszar{
+        get {
+            return new Rectangle(
+                (int)(pozycja.X * Game1.skalaX),
+                (int)(pozycja.Y * Game1.skalaY),
+                (int)(0.8*Game1.rozmiar_bloku * Game1.skalaX),
+                (int)(1.5 * Game1.rozmiar_bloku * Game1.skalaY)                
+            );
+        }
+       }
         public Gracz(Texture2D tekstura, Vector2 pozycja, List<Rectangle>kolizje) : base(tekstura,pozycja){
            this.kolizje = kolizje;
         }
@@ -30,8 +39,8 @@ public override void Update(GameTime gameTime)
     Obszar_gracza = new Rectangle(
         (int)(pozycja.X * Game1.skalaX),
         (int)(pozycja.Y * Game1.skalaY), 
-        (int)(60 * Game1.skalaX),
-        (int)(101.3 * Game1.skalaY)
+        (int)(0.8*Game1.rozmiar_bloku * Game1.skalaX),
+        (int)(1.5*Game1.rozmiar_bloku* Game1.skalaY)
     );
 
     // Ruch w poziomie
@@ -64,7 +73,7 @@ public override void Update(GameTime gameTime)
 
     if (Keyboard.GetState().IsKeyDown(Keys.Up) && skok && skok2)
     {
-        Przyspieszenie.Y = -12;
+        Przyspieszenie.Y = -13;
         skok = skok2 = false;
     }
     if (Keyboard.GetState().IsKeyUp(Keys.Up))
@@ -104,10 +113,10 @@ private void Aktualizacja_Kolizji(){
             foreach (var tekstura in Game1.mapa)
         {
             Rectangle skrzyniaObszar = new Rectangle(
-                (int)(tekstura.Key.X * 64 * Game1.skalaX),
-                (int)(tekstura.Key.Y * 64 * Game1.skalaY),
-                (int)(64 * Game1.skalaX),
-                (int)(64 * Game1.skalaY)
+                (int)(tekstura.Key.X * Game1.rozmiar_bloku * Game1.skalaX),
+                (int)(tekstura.Key.Y * Game1.rozmiar_bloku * Game1.skalaY),
+                (int)(Game1.rozmiar_bloku * Game1.skalaX),
+                (int)(Game1.rozmiar_bloku * Game1.skalaY)
             );
             
             kolizje.Add(skrzyniaObszar);

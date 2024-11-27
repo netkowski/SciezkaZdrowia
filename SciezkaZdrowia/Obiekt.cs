@@ -15,15 +15,15 @@ namespace SciezkaZdrowia
         public Texture2D tekstura;
         public Vector2 pozycja;
     
-    public Rectangle obszar 
+    public virtual Rectangle obszar 
         {
             get
             {
               return new Rectangle(
               (int)(pozycja.X*Game1.skalaX), 
               (int)(pozycja.Y*Game1.skalaY),
-              (int)(60*Game1.skalaX), 
-              (int)(101.3*Game1.skalaY));
+              (int)(0.5*Game1.rozmiar_bloku*Game1.skalaX), 
+              (int)(Game1.rozmiar_bloku*Game1.skalaY));
             }
         }
 
