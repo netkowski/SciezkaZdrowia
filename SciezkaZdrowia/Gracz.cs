@@ -21,7 +21,7 @@ namespace SciezkaZdrowia
        private int poprzedni_kierunek;
        private Rectangle Obszar_gracza;
        private Vector2 Przyspieszenie;
-       private bool skok,skok2,lewo,prawo;
+       private bool skok,drugi_skok,lewo,prawo;
        public override Rectangle obszar{
         get {
             return new Rectangle(
@@ -39,6 +39,7 @@ namespace SciezkaZdrowia
 public override void Update(GameTime gameTime)
 {
     Aktualizacja_Kolizji();
+
     Obszar_gracza = new Rectangle(
         (int)(pozycja.X * Game1.skalaX),
         (int)(pozycja.Y * Game1.skalaY), 
@@ -49,7 +50,7 @@ public override void Update(GameTime gameTime)
     // Ruch w poziomie
     if ((Keyboard.GetState().IsKeyDown(Keys.Right))&&prawo)
     {
-        Przyspieszenie.X = 5;
+        Przyspieszenie.X = 4;
         kierunek = 2;
         poprzedni_kierunek = kierunek;
     }
@@ -73,6 +74,7 @@ public override void Update(GameTime gameTime)
     pozycja.X += Przyspieszenie.X;
     
     Obszar_gracza.X = (int)(pozycja.X*Game1.skalaX);
+    
 
     if (Kolizja(kolizje))
     {
@@ -80,21 +82,30 @@ public override void Update(GameTime gameTime)
         lewo = false; 
         prawo = false;
         kierunek = 0;
-        
+        Przyspieszenie.Y = 0.4f;        
+        if (drugi_skok){
+        skok = true;
+        }
     }
 
-    if (Keyboard.GetState().IsKeyDown(Keys.Up) && skok && skok2)
+    if (Keyboard.GetState().IsKeyDown(Keys.Up) && skok && drugi_skok)
     {
         Przyspieszenie.Y = -13;
-        skok = skok2 = false;
+        skok = drugi_skok = false;
     }
     if (Keyboard.GetState().IsKeyUp(Keys.Up))
     {
-        skok2 = true;
+        drugi_skok = true;
     }
 
-    // Grawitacja
-    Przyspieszenie.Y += 1f;
+
+    if (Kolizja(kolizje) && Przyspieszenie.Y > 0)
+    {
+        Przyspieszenie.Y = 1; 
+    }
+
+
+    Przyspieszenie.Y += 1;
     if (Przyspieszenie.Y > 25f)
     {
         Przyspieszenie.Y = 25f;
@@ -104,19 +115,33 @@ public override void Update(GameTime gameTime)
     pozycja.Y += Przyspieszenie.Y;
     Obszar_gracza.Y = (int)(pozycja.Y*Game1.skalaY);
 
-    if (Kolizja(kolizje))
-    {
-        if (Przyspieszenie.Y > 0 && pozycjaY_przed_kolizja < pozycja.Y)
-        {
-            skok = true; 
-        }
+if (Kolizja(kolizje))
+{
+    
 
-        Przyspieszenie.Y = 0;
-        pozycja.Y = pozycjaY_przed_kolizja;
+    foreach (var skrzynia in kolizje)
+    {
+        if (Obszar_gracza.Intersects(skrzynia))
+        {
+            
+            if (pozycjaY_przed_kolizja + Obszar_gracza.Height <= skrzynia.Top) 
+            {
+                pozycja.Y = (skrzynia.Top - Obszar_gracza.Height) / Game1.skalaY;
+                Przyspieszenie.Y = 1;
+                skok = true; 
+            }
+            else if (pozycjaY_przed_kolizja >= skrzynia.Bottom) 
+            {
+                pozycja.Y = skrzynia.Bottom / Game1.skalaY;
+                Przyspieszenie.Y = -1;
+               
+            }
+            Przyspieszenie.Y = 0;
+        }
+         
     }
-    
-    base.Update(gameTime);
-    
+}
+    base.Update(gameTime);  
 }
 
 

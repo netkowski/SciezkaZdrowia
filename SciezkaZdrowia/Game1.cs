@@ -156,8 +156,8 @@ public class Game1 : Game
             }
         }
 
-        int maxHeight = 1024;
-        int maxWidth = 1280;
+        int maxHeight = (int)(16* rozmiar_bloku);
+        int maxWidth = (int)(20* rozmiar_bloku);
         if (Window.ClientBounds.Width>maxWidth){
             _graphics.IsFullScreen = false;
             _graphics.PreferredBackBufferWidth = maxWidth;
