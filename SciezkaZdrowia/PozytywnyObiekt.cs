@@ -9,11 +9,12 @@ using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
-namespace SciezkaZdrowia
-{
-   internal class Wrog : Obiekt {
-      public Wrog(Texture2D tekstura, Vector2 pozycja) : base(tekstura,pozycja){}
+namespace SciezkaZdrowia {
 
-   }
-   
+    internal class PozytywnyObiekt : Obiekt {
+
+        public PozytywnyObiekt(Texture2D tekstura, Vector2 pozycja) : base(tekstura,pozycja){}
+
+    }
+
 }
