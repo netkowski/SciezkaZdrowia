@@ -49,6 +49,13 @@
 /processorParam:TextureFormat=Color
 /build:../../../../../../../Downloads/woda.png;woda.png
 
+#begin Fonts/8bitfont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/8bitfont.spritefont
+
 #begin front1.png
 /importer:TextureImporter
 /processor:TextureProcessor

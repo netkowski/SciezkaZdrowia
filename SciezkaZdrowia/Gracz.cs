@@ -134,7 +134,7 @@ private void Aktualizacja_Kolizji() {
 
     kolizje.Clear();
 
-    foreach (var tekstura in Main.mapa) {
+    foreach (var tekstura in Main.aktywnaMapa) {
 
         Rectangle skrzyniaObszar = new Rectangle(
             (int)(tekstura.Key.X * Main.rozmiar_bloku * Main.skalaX),
