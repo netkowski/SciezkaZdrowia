@@ -116,13 +116,13 @@ public class Main : Game {
 
         }
 
-        gracz = new Gracz(animacja[ktora_klatka], new Vector2(200,200), kolizje);
-        wrogowie.Add(new Wrog(tekstura_wroga,new Vector2(rozmiar_bloku,3*rozmiar_bloku)));
-        wrogowie.Add(new Wrog(tekstura_wroga,new Vector2(rozmiar_bloku,4*rozmiar_bloku)));
-        wrogowie.Add(new Wrog(tekstura_wroga,new Vector2(2*rozmiar_bloku,5*rozmiar_bloku)));
-        wrogowie.Add(new Wrog(tekstura_wroga,new Vector2(2*rozmiar_bloku,2*rozmiar_bloku)));
+        gracz = new Gracz(animacja[ktora_klatka], new Vector2(200,800), kolizje);
+        wrogowie.Add(new Uzywka(tekstura_wroga,new Vector2(13*rozmiar_bloku,10*rozmiar_bloku)));
+        wrogowie.Add(new Uzywka(tekstura_wroga,new Vector2(13*rozmiar_bloku,11*rozmiar_bloku)));
+        wrogowie.Add(new Uzywka(tekstura_wroga,new Vector2(13*rozmiar_bloku,12*rozmiar_bloku)));
+        wrogowie.Add(new Uzywka(tekstura_wroga,new Vector2(13*rozmiar_bloku,13*rozmiar_bloku)));
 
-        wrogowie.Add(new Wrog(tekstura_wody,new Vector2(10*rozmiar_bloku,12*rozmiar_bloku)));
+        wrogowie.Add(new Uzywka(tekstura_wody,new Vector2(12*rozmiar_bloku,12*rozmiar_bloku)));
         
     }
 

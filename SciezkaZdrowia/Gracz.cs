@@ -53,7 +53,7 @@ public override void Update(GameTime gameTime) {
     
     if ((Keyboard.GetState().IsKeyDown(Keys.Right))&&prawo) {
 
-        Przyspieszenie.X = 5;
+        Przyspieszenie.X = 4;
         kierunek = 2;
         poprzedni_kierunek = kierunek;
 

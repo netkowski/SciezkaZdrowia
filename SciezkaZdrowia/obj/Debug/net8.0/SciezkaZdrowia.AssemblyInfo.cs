@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SciezkaZdrowia")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+312629faf0f6aa86ac1afe3cd1b91d93b2673c93")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3a15cefa7e36cd797253bb1ed79a2fbc84cb5467")]
 [assembly: System.Reflection.AssemblyProductAttribute("SciezkaZdrowia")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SciezkaZdrowia")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
