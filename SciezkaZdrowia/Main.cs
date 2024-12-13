@@ -15,8 +15,10 @@ namespace SciezkaZdrowia;
 
 enum Sceny {
     MENU,
+    USTAWIENIA,
+    INFORMACJE,
     POZIOM1,
-    POZIOM2
+    POZIOM2,
 }
 
 public class Main : Game {
@@ -39,6 +41,9 @@ public class Main : Game {
     private int maxHeight = (int)(16*rozmiar_bloku);
     private int maxWidth = (int)(20*rozmiar_bloku);
     private SpriteFont font;
+    private Rectangle pozycja_myszki,nowagra,ustawienia,informacje;
+    private bool nowagra_hover,ustawienia_hover,informacje_hover;
+    public float skalaTekstu;
    
     public Main() {
 
@@ -160,15 +165,28 @@ public class Main : Game {
             Exit();
 
         }
+        skalaTekstu = Math.Min(skalaX, skalaY);
+        var mouseState = Mouse.GetState();
+        pozycja_myszki = new Rectangle(mouseState.X,mouseState.Y,1,1);
+             
+
 
         switch (aktywnascena) {
 
             case Sceny.MENU:
 
-                if (Keyboard.GetState().IsKeyDown(Keys.L)){
+                if ((mouseState.LeftButton == ButtonState.Pressed)&&(nowagra_hover)) {
                     aktywnascena = Sceny.POZIOM1;
                     aktywnaMapa = mapa1;
                 }
+
+                if ((mouseState.LeftButton == ButtonState.Pressed)&&(ustawienia_hover)) {
+                    aktywnascena = Sceny.USTAWIENIA;
+                } 
+                
+                if ((mouseState.LeftButton == ButtonState.Pressed)&&(informacje_hover)) {
+                    aktywnascena = Sceny.INFORMACJE;
+                }                                
 
             break;
 
@@ -281,17 +299,45 @@ public class Main : Game {
 
     protected override void Draw(GameTime gameTime) {
 
-        GraphicsDevice.Clear(Color.Red);
+        GraphicsDevice.Clear(Color.Black);
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
         switch (aktywnascena){
 
             case Sceny.MENU:
-                 float skalaTekstu = Math.Min(skalaX, skalaY);
+                nowagra = new Rectangle ((int)(460*skalaX),(int)(400*skalaY),(int)(320*skalaX),(int)(50*skalaY) );
+                ustawienia = new Rectangle ((int)(410*skalaX),(int)(500*skalaY),(int)(430*skalaX),(int)(50*skalaY));
+                informacje = new Rectangle ((int)(410*skalaX),(int)(600*skalaY),(int)(430*skalaX),(int)(50*skalaY));
+                
+                 
+                
                  _spriteBatch.DrawString(font, "MENU", new Vector2(450 * skalaX, 150 * skalaY), Color.White, 0, Vector2.Zero, skalaTekstu, SpriteEffects.None, 0);
+
+                 if (nowagra.Contains(pozycja_myszki)){
+                 _spriteBatch.DrawString(font, "NOWA GRA", new Vector2(460 * skalaX, 400 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.5), SpriteEffects.None, 0);
+                 nowagra_hover = true;
+                 } else {
                  _spriteBatch.DrawString(font, "NOWA GRA", new Vector2(460 * skalaX, 400 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.5), SpriteEffects.None, 0);
+                 nowagra_hover = false;
+                 }
+
+                if (ustawienia.Contains(pozycja_myszki)){
+                 _spriteBatch.DrawString(font, "USTAWIENIA", new Vector2(410 * skalaX, 500 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.5), SpriteEffects.None, 0);
+                 ustawienia_hover = true;
+                } else {
                  _spriteBatch.DrawString(font, "USTAWIENIA", new Vector2(410 * skalaX, 500 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.5), SpriteEffects.None, 0);
+                 ustawienia_hover = false;
+
+                }
+
+                if (informacje.Contains(pozycja_myszki)){
+                 _spriteBatch.DrawString(font, "INFORMACJE", new Vector2(410 * skalaX, 600 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.5), SpriteEffects.None, 0);
+                 informacje_hover = true;
+                } else {
                  _spriteBatch.DrawString(font, "INFORMACJE", new Vector2(410 * skalaX, 600 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.5), SpriteEffects.None, 0);
+                 informacje_hover = false;
+
+                }
                     
             break;
 
@@ -342,6 +388,13 @@ public class Main : Game {
                     _spriteBatch.Draw(skrzynia,dest,Color.White);
 
                 }
+
+            break;
+
+            case Sceny.INFORMACJE:
+
+            _spriteBatch.DrawString(font, "INFORMACJE", new Vector2(340 * skalaX, 70 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.7), SpriteEffects.None, 0);
+
 
             break;
 
