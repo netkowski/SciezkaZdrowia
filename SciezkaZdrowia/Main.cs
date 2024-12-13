@@ -41,8 +41,8 @@ public class Main : Game {
     private int maxHeight = (int)(16*rozmiar_bloku);
     private int maxWidth = (int)(20*rozmiar_bloku);
     private SpriteFont font;
-    private Rectangle pozycja_myszki,nowagra,ustawienia,informacje;
-    private bool nowagra_hover,ustawienia_hover,informacje_hover;
+    private Rectangle pozycja_myszki,nowagra,ustawienia,informacje,rozdzielczosc1,rozdzielczosc2,rozdzielczosc3,menu;
+    private bool nowagra_hover,ustawienia_hover,informacje_hover,rozdzielczosc1_hover,rozdzielczosc2_hover,rozdzielczosc3_hover,menu_hover;
     public float skalaTekstu;
    
     public Main() {
@@ -196,7 +196,38 @@ public class Main : Game {
                     aktywnascena = Sceny.POZIOM2;
                     aktywnaMapa = mapa2;
                 }
+                
+                if ((mouseState.LeftButton == ButtonState.Pressed)&&(menu_hover)) {
+                aktywnascena = Sceny.MENU;
+                }
+            break;
 
+            case Sceny.USTAWIENIA:
+
+            if ((mouseState.LeftButton == ButtonState.Pressed)&&(rozdzielczosc1_hover)) {
+                _graphics.PreferredBackBufferHeight = (int)(16*rozmiar_bloku);
+                _graphics.PreferredBackBufferWidth = (int)(20*rozmiar_bloku);
+                _graphics.ApplyChanges();
+            }
+            if ((mouseState.LeftButton == ButtonState.Pressed)&&(rozdzielczosc2_hover)) {
+                _graphics.PreferredBackBufferHeight = (int)(8*rozmiar_bloku);
+                _graphics.PreferredBackBufferWidth = (int)(10*rozmiar_bloku);
+                _graphics.ApplyChanges();
+            }
+            if ((mouseState.LeftButton == ButtonState.Pressed)&&(rozdzielczosc3_hover)) {
+                _graphics.PreferredBackBufferHeight = (int)(4*rozmiar_bloku);
+                _graphics.PreferredBackBufferWidth = (int)(5*rozmiar_bloku);
+                _graphics.ApplyChanges();
+            }
+            if ((mouseState.LeftButton == ButtonState.Pressed)&&(menu_hover)) {
+               aktywnascena = Sceny.MENU;
+            }
+            break;
+
+            case Sceny.INFORMACJE:
+            if ((mouseState.LeftButton == ButtonState.Pressed)&&(menu_hover)) {
+               aktywnascena = Sceny.MENU;
+            }
             break;
 
         }
@@ -343,26 +374,38 @@ public class Main : Game {
 
             case Sceny.POZIOM1:
 
-        _spriteBatch.Draw(tlo_poziom1,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
-        _spriteBatch.Draw(animacja[ktora_klatka], gracz.obszar, Color.White);
+                menu = new Rectangle ((int)(1165*skalaX),(int)(980*skalaY),(int)(100*skalaX),(int)(33*skalaY));
 
-        foreach (var obiekt in wrogowie) {
+                _spriteBatch.Draw(tlo_poziom1,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
+                _spriteBatch.Draw(animacja[ktora_klatka], gracz.obszar, Color.White);
 
-            _spriteBatch.Draw(obiekt.tekstura, obiekt.obszar, Color.White);
 
-        }
 
-        foreach (var tekstura in mapa1) {
+                foreach (var obiekt in wrogowie) {
 
-            Rectangle dest = new (
-                (int)(tekstura.Key.X * rozmiar_bloku*Main.skalaX),
-                (int)(tekstura.Key.Y * rozmiar_bloku*Main.skalaY),
-                (int)(rozmiar_bloku*Main.skalaX),
-                (int)(rozmiar_bloku*Main.skalaY)
-            );
-            _spriteBatch.Draw(skrzynia,dest,Color.White);
+                    _spriteBatch.Draw(obiekt.tekstura, obiekt.obszar, Color.White);
 
-        }
+                }
+
+                foreach (var tekstura in mapa1) {
+
+                    Rectangle dest = new (
+                        (int)(tekstura.Key.X * rozmiar_bloku*Main.skalaX),
+                        (int)(tekstura.Key.Y * rozmiar_bloku*Main.skalaY),
+                        (int)(rozmiar_bloku*Main.skalaX),
+                        (int)(rozmiar_bloku*Main.skalaY)
+                    );
+                    _spriteBatch.Draw(skrzynia,dest,Color.White);
+
+                }
+
+                if (menu.Contains(pozycja_myszki)){
+                _spriteBatch.DrawString(font, "MENU", new Vector2(1165 * skalaX, 980 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+                menu_hover = true;
+                } else {
+                _spriteBatch.DrawString(font, "MENU", new Vector2(1165 * skalaX, 980 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);           
+                menu_hover = false;
+                }
 
             break;
 
@@ -392,9 +435,61 @@ public class Main : Game {
             break;
 
             case Sceny.INFORMACJE:
+            menu = new Rectangle ((int)(900*skalaX),(int)(950*skalaY),(int)(335*skalaX),(int)(33*skalaY));
 
             _spriteBatch.DrawString(font, "INFORMACJE", new Vector2(340 * skalaX, 70 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.7), SpriteEffects.None, 0);
 
+            if (menu.Contains(pozycja_myszki)){
+            _spriteBatch.DrawString(font, "POWROT DO MENU", new Vector2(900 * skalaX, 950 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+            menu_hover = true;
+            } else {
+            _spriteBatch.DrawString(font, "POWROT DO MENU", new Vector2(900 * skalaX, 950 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);           
+            menu_hover = false;
+            }
+
+            break;
+
+            case Sceny.USTAWIENIA:
+
+            rozdzielczosc1 = new Rectangle ((int)(500*skalaX),(int)(320*skalaY),(int)(260*skalaX),(int)(33*skalaY) );
+            rozdzielczosc2 = new Rectangle ((int)(525*skalaX),(int)(380*skalaY),(int)(200*skalaX),(int)(33*skalaY));
+            rozdzielczosc3 = new Rectangle ((int)(525*skalaX),(int)(440*skalaY),(int)(200*skalaX),(int)(33*skalaY));
+            menu = new Rectangle ((int)(900*skalaX),(int)(950*skalaY),(int)(335*skalaX),(int)(33*skalaY));
+
+            _spriteBatch.DrawString(font, "USTAWIENIA", new Vector2(340 * skalaX, 70 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.7), SpriteEffects.None, 0);
+            _spriteBatch.DrawString(font, "ROZDZIELCZOSC", new Vector2(410 * skalaX, 240 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.4), SpriteEffects.None, 0);
+
+            if (rozdzielczosc1.Contains(pozycja_myszki)){
+            _spriteBatch.DrawString(font, "1280 X 1024", new Vector2(500 * skalaX, 320 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+            rozdzielczosc1_hover = true;
+            } else {
+            _spriteBatch.DrawString(font, "1280 X 1024", new Vector2(500 * skalaX, 320 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+            rozdzielczosc1_hover = false;
+            }
+
+            if (rozdzielczosc2.Contains(pozycja_myszki)){
+            _spriteBatch.DrawString(font, "640 X 512", new Vector2(525 * skalaX, 380 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+            rozdzielczosc2_hover = true;
+            } else {
+            _spriteBatch.DrawString(font, "640 X 512", new Vector2(525 * skalaX, 380 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+            rozdzielczosc2_hover = false;
+            }
+
+            if (rozdzielczosc3.Contains(pozycja_myszki)){
+            _spriteBatch.DrawString(font, "320 X 256", new Vector2(525 * skalaX, 440 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+            rozdzielczosc3_hover = true;
+            } else {
+            _spriteBatch.DrawString(font, "320 X 256", new Vector2(525 * skalaX, 440 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);           
+            rozdzielczosc3_hover = false;
+            }
+
+            if (menu.Contains(pozycja_myszki)){
+            _spriteBatch.DrawString(font, "POWROT DO MENU", new Vector2(900 * skalaX, 950 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+            menu_hover = true;
+            } else {
+            _spriteBatch.DrawString(font, "POWROT DO MENU", new Vector2(900 * skalaX, 950 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);           
+            menu_hover = false;
+            }
 
             break;
 
