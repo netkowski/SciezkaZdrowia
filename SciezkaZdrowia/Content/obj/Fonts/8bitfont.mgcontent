@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/Fonts/8bitfont.spritefont</SourceFile>
-  <SourceTime>2024-12-12T00:13:10.56474+01:00</SourceTime>
+  <SourceTime>2024-12-12T00:42:44.1551009+01:00</SourceTime>
   <DestFile>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/bin/Fonts/8bitfont.xnb</DestFile>
-  <DestTime>2024-12-12T00:13:30.5682465+01:00</DestTime>
+  <DestTime>2024-12-14T01:03:08.4180233+01:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2024-08-16T19:05:56+02:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>

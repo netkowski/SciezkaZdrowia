@@ -165,6 +165,8 @@ private bool Kolizja(List<Rectangle> kolizje) {
 
 }
 
+
+
     }
 
 }

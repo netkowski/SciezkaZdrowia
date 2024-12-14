@@ -5,6 +5,7 @@ using System.Diagnostics.Metrics;
 using System.IO;
 using System.Numerics;
 using System.Runtime.CompilerServices;
+using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Design;
 using Microsoft.Xna.Framework.Graphics;
@@ -44,7 +45,9 @@ public class Main : Game {
     private Rectangle pozycja_myszki,nowagra,ustawienia,informacje,rozdzielczosc1,rozdzielczosc2,rozdzielczosc3,menu;
     private bool nowagra_hover,ustawienia_hover,informacje_hover,rozdzielczosc1_hover,rozdzielczosc2_hover,rozdzielczosc3_hover,menu_hover;
     public float skalaTekstu;
-   
+    private int timer,licznik_sekund = 0;
+    private int limit_czasu;
+    
     public Main() {
 
         _graphics = new GraphicsDeviceManager(this);
@@ -119,7 +122,7 @@ public class Main : Game {
         skrzynia = Content.Load<Texture2D>("box");
         Texture2D tekstura_wody = Content.Load<Texture2D>("woda");
         Texture2D tekstura_alkoholu = Content.Load<Texture2D>("alkohol");
-
+        Texture2D serce = Content.Load<Texture2D>("serce");
         wrogowie = new();
 
         List<Rectangle> kolizje = new List<Rectangle>();
@@ -148,13 +151,15 @@ public class Main : Game {
 
         }
 
-        gracz = new Gracz(animacja[ktora_klatka], new Vector2(200,800), kolizje);
+        gracz = new Gracz(animacja[ktora_klatka], new Vector2(70,800), kolizje);
         wrogowie.Add(new Uzywka(tekstura_alkoholu,new Vector2(13*rozmiar_bloku,10*rozmiar_bloku)));
         wrogowie.Add(new Uzywka(tekstura_alkoholu,new Vector2(13*rozmiar_bloku,11*rozmiar_bloku)));
         wrogowie.Add(new Uzywka(tekstura_alkoholu,new Vector2(13*rozmiar_bloku,12*rozmiar_bloku)));
         wrogowie.Add(new Uzywka(tekstura_alkoholu,new Vector2(13*rozmiar_bloku,13*rozmiar_bloku)));
 
         wrogowie.Add(new Uzywka(tekstura_wody,new Vector2(12*rozmiar_bloku,12*rozmiar_bloku)));
+
+
         
     }
 
@@ -165,12 +170,19 @@ public class Main : Game {
             Exit();
 
         }
+
+        timer += 1;
+
+        if (timer % 60 == 0){
+
+            licznik_sekund += 1;
+
+        }
+
         skalaTekstu = Math.Min(skalaX, skalaY);
         var mouseState = Mouse.GetState();
         pozycja_myszki = new Rectangle(mouseState.X,mouseState.Y,1,1);
              
-
-
         switch (aktywnascena) {
 
             case Sceny.MENU:
@@ -178,6 +190,7 @@ public class Main : Game {
                 if ((mouseState.LeftButton == ButtonState.Pressed)&&(nowagra_hover)) {
                     aktywnascena = Sceny.POZIOM1;
                     aktywnaMapa = mapa1;
+                    Reset_poziomu();
                 }
 
                 if ((mouseState.LeftButton == ButtonState.Pressed)&&(ustawienia_hover)) {
@@ -191,15 +204,17 @@ public class Main : Game {
             break;
 
             case Sceny.POZIOM1:
-
+                
                 if (Keyboard.GetState().IsKeyDown(Keys.K)){
                     aktywnascena = Sceny.POZIOM2;
-                    aktywnaMapa = mapa2;
                 }
-                
-                if ((mouseState.LeftButton == ButtonState.Pressed)&&(menu_hover)) {
-                aktywnascena = Sceny.MENU;
-                }
+                Powrot_do_main_menu();           
+
+            break;
+
+            case Sceny.POZIOM2:
+                aktywnaMapa = mapa2;
+                Powrot_do_main_menu();
             break;
 
             case Sceny.USTAWIENIA:
@@ -219,15 +234,11 @@ public class Main : Game {
                 _graphics.PreferredBackBufferWidth = (int)(5*rozmiar_bloku);
                 _graphics.ApplyChanges();
             }
-            if ((mouseState.LeftButton == ButtonState.Pressed)&&(menu_hover)) {
-               aktywnascena = Sceny.MENU;
-            }
+            Powrot_do_main_menu();
             break;
 
             case Sceny.INFORMACJE:
-            if ((mouseState.LeftButton == ButtonState.Pressed)&&(menu_hover)) {
-               aktywnascena = Sceny.MENU;
-            }
+            Powrot_do_main_menu();
             break;
 
         }
@@ -373,7 +384,7 @@ public class Main : Game {
             break;
 
             case Sceny.POZIOM1:
-
+                limit_czasu = 30;
                 menu = new Rectangle ((int)(1165*skalaX),(int)(980*skalaY),(int)(100*skalaX),(int)(33*skalaY));
 
                 _spriteBatch.Draw(tlo_poziom1,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
@@ -398,14 +409,7 @@ public class Main : Game {
                     _spriteBatch.Draw(skrzynia,dest,Color.White);
 
                 }
-
-                if (menu.Contains(pozycja_myszki)){
-                _spriteBatch.DrawString(font, "MENU", new Vector2(1165 * skalaX, 980 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
-                menu_hover = true;
-                } else {
-                _spriteBatch.DrawString(font, "MENU", new Vector2(1165 * skalaX, 980 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);           
-                menu_hover = false;
-                }
+                Info_o_poziomie(1, 30);
 
             break;
 
@@ -431,6 +435,7 @@ public class Main : Game {
                     _spriteBatch.Draw(skrzynia,dest,Color.White);
 
                 }
+                Info_o_poziomie(2, 40);
 
             break;
 
@@ -498,7 +503,38 @@ public class Main : Game {
         _spriteBatch.End();
 
         base.Draw(gameTime);
+    }
+    void Info_o_poziomie(int nr, int limit_czasu){
+        int czas = limit_czasu-licznik_sekund;
+        if (czas < 1){
+            czas = 0;
+        }
+        _spriteBatch.DrawString(font, "POZIOM "+ nr, new Vector2(545 * skalaX, 15 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+        _spriteBatch.DrawString(font, "WYNIK: ", new Vector2(20 * skalaX, 980 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+        _spriteBatch.DrawString(font, "CZAS: "+ czas, new Vector2(10 * skalaX, 15 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+
+        if (menu.Contains(pozycja_myszki)){
+        _spriteBatch.DrawString(font, "MENU", new Vector2(1165 * skalaX, 980 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+        menu_hover = true;
+        } else {
+        _spriteBatch.DrawString(font, "MENU", new Vector2(1165 * skalaX, 980 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);           
+        menu_hover = false;
+        }
+    }
+
+    void Powrot_do_main_menu(){
+            var mouseState = Mouse.GetState();
+            if ((mouseState.LeftButton == ButtonState.Pressed)&&(menu_hover)) {
+            aktywnascena = Sceny.MENU;
+            }
+    
+    }
+    void Reset_poziomu(){
+     
+    gracz.pozycja.X = 70;
+    gracz.pozycja.Y = 800;
 
     }
+
 
 }
