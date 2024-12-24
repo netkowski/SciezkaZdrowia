@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.IO;
+using System.Net.Security;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using Microsoft.VisualBasic;
@@ -34,10 +35,18 @@ public class Main : Game {
     private Texture2D[] animacja;
     private Texture2D tlo_poziom1;
     private Texture2D skrzynia;
+    private Texture2D meta;
+    private Texture2D tekstura_alkoholu;
+    private Texture2D tekstura_wody;
+    private bool nastepny_poziom = false;
+    private Texture2D serce;
     private int licznik;
+    private bool obiekty_dodane = false;
     private int ktora_klatka;
     private Obiekt gracz;
-    private List<Obiekt> wrogowie;
+    private List<Uzywka> Uzywki;
+    private List<Obiekt>Pozostale;
+    private List<PozytywnyObiekt> Pozytywne_obiekty;
     private Sceny aktywnascena;
     private int maxHeight = (int)(16*rozmiar_bloku);
     private int maxWidth = (int)(20*rozmiar_bloku);
@@ -95,7 +104,7 @@ public class Main : Game {
 
         _graphics.PreferredBackBufferWidth = (int)(20*rozmiar_bloku);
         _graphics.PreferredBackBufferHeight = (int)(16*rozmiar_bloku);
-        this.Window.AllowUserResizing = true;
+        this.Window.AllowUserResizing = false;
         this.Window.Title = "Ścieżka Zdrowia Nikodem Netkowski s193335";
         this.Window.Position = Point.Zero;
         _graphics.ApplyChanges();
@@ -120,10 +129,13 @@ public class Main : Game {
         animacja[4] = Content.Load<Texture2D>("prawo1");  
         animacja[5] = Content.Load<Texture2D>("prawo2");   
         skrzynia = Content.Load<Texture2D>("box");
-        Texture2D tekstura_wody = Content.Load<Texture2D>("woda");
-        Texture2D tekstura_alkoholu = Content.Load<Texture2D>("alkohol");
-        Texture2D serce = Content.Load<Texture2D>("serce");
-        wrogowie = new();
+        tekstura_wody = Content.Load<Texture2D>("woda");
+        tekstura_alkoholu = Content.Load<Texture2D>("alkohol");
+        serce = Content.Load<Texture2D>("serce");
+        meta = Content.Load<Texture2D>("meta");
+        Uzywki = new();
+        Pozytywne_obiekty = new();
+        Pozostale = new();
 
         List<Rectangle> kolizje = new List<Rectangle>();
 
@@ -151,14 +163,7 @@ public class Main : Game {
 
         }
 
-        gracz = new Gracz(animacja[ktora_klatka], new Vector2(70,800), kolizje);
-        wrogowie.Add(new Uzywka(tekstura_alkoholu,new Vector2(13*rozmiar_bloku,10*rozmiar_bloku)));
-        wrogowie.Add(new Uzywka(tekstura_alkoholu,new Vector2(13*rozmiar_bloku,11*rozmiar_bloku)));
-        wrogowie.Add(new Uzywka(tekstura_alkoholu,new Vector2(13*rozmiar_bloku,12*rozmiar_bloku)));
-        wrogowie.Add(new Uzywka(tekstura_alkoholu,new Vector2(13*rozmiar_bloku,13*rozmiar_bloku)));
-
-        wrogowie.Add(new Uzywka(tekstura_wody,new Vector2(12*rozmiar_bloku,12*rozmiar_bloku)));
-
+        gracz = new Gracz(animacja[ktora_klatka], new Vector2(70,800), kolizje, 3);
 
         
     }
@@ -205,11 +210,22 @@ public class Main : Game {
 
             case Sceny.POZIOM1:
                 
-                if (Keyboard.GetState().IsKeyDown(Keys.K)){
+                if (nastepny_poziom){
                     aktywnascena = Sceny.POZIOM2;
+                    obiekty_dodane = false;
+                    nastepny_poziom = false;
                 }
-                Powrot_do_main_menu();           
+                Powrot_do_main_menu(); 
+                if (!obiekty_dodane){
+                Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(13*rozmiar_bloku,10*rozmiar_bloku)));
+                Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(13*rozmiar_bloku,11*rozmiar_bloku)));
+                Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(13*rozmiar_bloku,12*rozmiar_bloku)));
+                Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(13*rozmiar_bloku,13*rozmiar_bloku)));  
 
+                Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(3*rozmiar_bloku,2*rozmiar_bloku)));
+                Pozostale.Add(new Obiekt(meta,new Vector2(18*rozmiar_bloku,2*rozmiar_bloku)));
+                obiekty_dodane = true;       
+                }
             break;
 
             case Sceny.POZIOM2:
@@ -242,24 +258,50 @@ public class Main : Game {
             break;
 
         }
-        List<Obiekt> ZebraneObiekty = new();
+        List<Uzywka> ZebraneUzywki = new();
+        List<PozytywnyObiekt> ZebranePozytywne = new();
 
-        foreach(var obiekt in wrogowie) {
+        foreach(var obiekt in Uzywki) {
             obiekt.Update(gameTime);
 
             if (obiekt.obszar.Intersects(gracz.obszar)) {
 
-                ZebraneObiekty.Add(obiekt);
+                ZebraneUzywki.Add(obiekt);
 
             }
 
         }
+        foreach(var obiekt in Pozytywne_obiekty) {
+            obiekt.Update(gameTime);
 
-        foreach(var obiekt in ZebraneObiekty) {
+            if (obiekt.obszar.Intersects(gracz.obszar)) {
 
-            wrogowie.Remove(obiekt);
+                ZebranePozytywne.Add(obiekt);
+
+            }
 
         }
+        foreach(var obiekt in Pozostale) {
+            obiekt.Update(gameTime);
+
+            if (obiekt.obszar.Intersects(gracz.obszar)) {
+
+                nastepny_poziom = true;
+
+            }
+
+        }
+        foreach(var obiekt in ZebraneUzywki) {
+
+            Uzywki.Remove(obiekt);
+            Gracz.Zycie--;
+        }
+
+        foreach (var obiekt in ZebranePozytywne) {
+            Pozytywne_obiekty.Remove(obiekt);
+            Gracz.Punkty += 100;
+        }
+
 
         gracz.Update(gameTime);
 
@@ -390,9 +432,19 @@ public class Main : Game {
                 _spriteBatch.Draw(tlo_poziom1,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
                 _spriteBatch.Draw(animacja[ktora_klatka], gracz.obszar, Color.White);
 
+                
 
+                foreach (var obiekt in Uzywki) {
 
-                foreach (var obiekt in wrogowie) {
+                    _spriteBatch.Draw(obiekt.tekstura, obiekt.obszar, Color.White);
+
+                }
+                foreach (var obiekt in Pozostale) {
+
+                    _spriteBatch.Draw(obiekt.tekstura, obiekt.obszar, Color.White);
+
+                }
+                foreach (var obiekt in Pozytywne_obiekty) {
 
                     _spriteBatch.Draw(obiekt.tekstura, obiekt.obszar, Color.White);
 
@@ -418,7 +470,12 @@ public class Main : Game {
                 _spriteBatch.Draw(tlo_poziom1,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
                 _spriteBatch.Draw(animacja[ktora_klatka], gracz.obszar, Color.White);
 
-                foreach (var obiekt in wrogowie) {
+                foreach (var obiekt in Uzywki) {
+
+                    _spriteBatch.Draw(obiekt.tekstura, obiekt.obszar, Color.White);
+
+                }
+                foreach (var obiekt in Pozytywne_obiekty) {
 
                     _spriteBatch.Draw(obiekt.tekstura, obiekt.obszar, Color.White);
 
@@ -510,7 +567,7 @@ public class Main : Game {
             czas = 0;
         }
         _spriteBatch.DrawString(font, "POZIOM "+ nr, new Vector2(545 * skalaX, 15 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
-        _spriteBatch.DrawString(font, "WYNIK: ", new Vector2(20 * skalaX, 980 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+        _spriteBatch.DrawString(font, "WYNIK: "+Gracz.Punkty, new Vector2(20 * skalaX, 980 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
         _spriteBatch.DrawString(font, "CZAS: "+ czas, new Vector2(10 * skalaX, 15 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
 
         if (menu.Contains(pozycja_myszki)){
@@ -520,6 +577,8 @@ public class Main : Game {
         _spriteBatch.DrawString(font, "MENU", new Vector2(1165 * skalaX, 980 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);           
         menu_hover = false;
         }
+        poziom_zycia();
+        
     }
 
     void Powrot_do_main_menu(){
@@ -534,6 +593,21 @@ public class Main : Game {
     gracz.pozycja.X = 70;
     gracz.pozycja.Y = 800;
 
+    }
+
+    void poziom_zycia(){
+        if (Gracz.Zycie == 3){
+            _spriteBatch.Draw(serce, new Vector2(17*rozmiar_bloku,0),Color.White);
+            _spriteBatch.Draw(serce, new Vector2(18*rozmiar_bloku,0),Color.White);
+            _spriteBatch.Draw(serce, new Vector2(19*rozmiar_bloku,0),Color.White);
+        }
+        if (Gracz.Zycie == 2){
+            _spriteBatch.Draw(serce, new Vector2(18*rozmiar_bloku,0),Color.White);
+            _spriteBatch.Draw(serce, new Vector2(19*rozmiar_bloku,0),Color.White);
+        }
+        if (Gracz.Zycie == 1){
+            _spriteBatch.Draw(serce, new Vector2(19*rozmiar_bloku,0),Color.White);
+        }
     }
 
 

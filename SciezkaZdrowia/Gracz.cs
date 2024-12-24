@@ -21,6 +21,8 @@ namespace SciezkaZdrowia {
         private Rectangle Obszar_gracza;
         private Vector2 Przyspieszenie;
         private bool skok,skok2,lewo,prawo;
+        public static int Zycie;
+        public static int Punkty = 0;
         public override Rectangle obszar{
 
             get {
@@ -35,9 +37,11 @@ namespace SciezkaZdrowia {
             }
 
         }
-        public Gracz(Texture2D tekstura, Vector2 pozycja, List<Rectangle>kolizje) : base(tekstura,pozycja) {
+
+        public Gracz(Texture2D tekstura, Vector2 pozycja, List<Rectangle>kolizje, int zycie) : base(tekstura,pozycja) {
 
            this.kolizje = kolizje;
+           Zycie=zycie;
 
         }
 
@@ -129,7 +133,6 @@ public override void Update(GameTime gameTime) {
 }
 
 
-
 private void Aktualizacja_Kolizji() {
 
     kolizje.Clear();
@@ -165,7 +168,9 @@ private bool Kolizja(List<Rectangle> kolizje) {
 
 }
 
-
+public int poziom_zycia(){
+    return Zycie;
+}
 
     }
 
