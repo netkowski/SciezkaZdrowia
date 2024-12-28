@@ -52,8 +52,8 @@ public class Main : Game {
     private int maxHeight = (int)(16*rozmiar_bloku);
     private int maxWidth = (int)(20*rozmiar_bloku);
     private SpriteFont font;
-    private Rectangle pozycja_myszki,nowagra,ustawienia,informacje,rozdzielczosc1,rozdzielczosc2,rozdzielczosc3,menu;
-    private bool nowagra_hover,ustawienia_hover,informacje_hover,rozdzielczosc1_hover,rozdzielczosc2_hover,rozdzielczosc3_hover,menu_hover;
+    private Rectangle pozycja_myszki,nowagra,ustawienia,informacje,rozdzielczosc1,rozdzielczosc2,rozdzielczosc3,menu,wyjscie;
+    private bool nowagra_hover,ustawienia_hover,informacje_hover,rozdzielczosc1_hover,rozdzielczosc2_hover,rozdzielczosc3_hover,menu_hover,wyjscie_hover;
     public float skalaTekstu;
     private int timer,licznik_sekund = 0;
     private int limit_czasu;
@@ -206,7 +206,10 @@ public class Main : Game {
                 
                 if ((mouseState.LeftButton == ButtonState.Pressed)&&(informacje_hover)) {
                     aktywnascena = Sceny.INFORMACJE;
-                }                                
+                }     
+                if ((mouseState.LeftButton == ButtonState.Pressed)&&(wyjscie_hover)) {
+                    Exit();
+                }                            
 
             break;
 
@@ -251,6 +254,15 @@ public class Main : Game {
                 }
                 aktywnaMapa = mapa2;
                 Powrot_do_main_menu();
+
+                if (!obiekty_dodane){
+
+                Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(1*rozmiar_bloku,1*rozmiar_bloku),100));
+
+
+                Pozostale.Add(new Obiektinnychrozmiarow(meta,new Vector2(18*rozmiar_bloku,rozmiar_bloku),1f,2f));
+                obiekty_dodane = true;       
+                }
 
             break;
 
@@ -414,7 +426,7 @@ public class Main : Game {
                 nowagra = new Rectangle ((int)(460*skalaX),(int)(400*skalaY),(int)(320*skalaX),(int)(50*skalaY) );
                 ustawienia = new Rectangle ((int)(410*skalaX),(int)(500*skalaY),(int)(430*skalaX),(int)(50*skalaY));
                 informacje = new Rectangle ((int)(410*skalaX),(int)(600*skalaY),(int)(430*skalaX),(int)(50*skalaY));
-                
+                wyjscie = new Rectangle ((int)(450*skalaX),(int)(700*skalaY),(int)(325*skalaX),(int)(50*skalaY));                
                  
                 
                  _spriteBatch.DrawString(font, "MENU", new Vector2(450 * skalaX, 150 * skalaY), Color.White, 0, Vector2.Zero, skalaTekstu, SpriteEffects.None, 0);
@@ -442,6 +454,14 @@ public class Main : Game {
                 } else {
                  _spriteBatch.DrawString(font, "INFORMACJE", new Vector2(410 * skalaX, 600 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.5), SpriteEffects.None, 0);
                  informacje_hover = false;
+                }
+
+                if (wyjscie.Contains(pozycja_myszki)){
+                 _spriteBatch.DrawString(font, "WYJSCIE", new Vector2(470 * skalaX, 700 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.5), SpriteEffects.None, 0);
+                 wyjscie_hover = true;
+                } else {
+                 _spriteBatch.DrawString(font, "WYJSCIE", new Vector2(470* skalaX, 700 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.5), SpriteEffects.None, 0);
+                 wyjscie_hover = false;
 
                 }
                     
@@ -493,6 +513,11 @@ public class Main : Game {
                 _spriteBatch.Draw(animacja[ktora_klatka], gracz.obszar, Color.White);
 
                 foreach (var obiekt in Uzywki) {
+
+                    _spriteBatch.Draw(obiekt.tekstura, obiekt.obszar, Color.White);
+
+                }
+                foreach (var obiekt in Pozostale) {
 
                     _spriteBatch.Draw(obiekt.tekstura, obiekt.obszar, Color.White);
 
