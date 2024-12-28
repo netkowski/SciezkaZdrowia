@@ -40,6 +40,7 @@ public class Main : Game {
     private Texture2D tekstura_wody;
     private bool nastepny_poziom = false;
     private Texture2D serce;
+    private bool reset = false;
     private int licznik;
     private bool obiekty_dodane = false;
     private int ktora_klatka;
@@ -195,6 +196,7 @@ public class Main : Game {
                 if ((mouseState.LeftButton == ButtonState.Pressed)&&(nowagra_hover)) {
                     aktywnascena = Sceny.POZIOM1;
                     aktywnaMapa = mapa1;
+                    reset = false;
                     Reset_poziomu();
                 }
 
@@ -209,28 +211,47 @@ public class Main : Game {
             break;
 
             case Sceny.POZIOM1:
-                
+
+                if (!reset){
+                Reset_poziomu();
+                reset = true;
+            
+                }
                 if (nastepny_poziom){
                     aktywnascena = Sceny.POZIOM2;
                     obiekty_dodane = false;
                     nastepny_poziom = false;
+                    reset = false;
+                    
+
                 }
                 Powrot_do_main_menu(); 
                 if (!obiekty_dodane){
-                Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(13*rozmiar_bloku,10*rozmiar_bloku)));
-                Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(13*rozmiar_bloku,11*rozmiar_bloku)));
-                Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(13*rozmiar_bloku,12*rozmiar_bloku)));
-                Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(13*rozmiar_bloku,13*rozmiar_bloku)));  
+                Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(18*rozmiar_bloku,12*rozmiar_bloku)));
+                Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(18*rozmiar_bloku,13*rozmiar_bloku)));
+                Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(18*rozmiar_bloku,14*rozmiar_bloku)));
+                Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(17*rozmiar_bloku,12*rozmiar_bloku)));
+                Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(17*rozmiar_bloku,13*rozmiar_bloku)));
+                Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(17*rozmiar_bloku,14*rozmiar_bloku)));
+                Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(6*rozmiar_bloku,9*rozmiar_bloku)));
 
-                Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(3*rozmiar_bloku,2*rozmiar_bloku)));
-                Pozostale.Add(new Obiekt(meta,new Vector2(18*rozmiar_bloku,2*rozmiar_bloku)));
+                Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(8*rozmiar_bloku,5*rozmiar_bloku),100));
+                Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(1*rozmiar_bloku,1*rozmiar_bloku),100));
+                Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(1*rozmiar_bloku,11*rozmiar_bloku),100));
+
+                Pozostale.Add(new Obiektinnychrozmiarow(meta,new Vector2(18*rozmiar_bloku,rozmiar_bloku),1f,2f));
                 obiekty_dodane = true;       
                 }
             break;
 
             case Sceny.POZIOM2:
+                if (!reset){
+                Reset_poziomu();
+                reset = true;
+                }
                 aktywnaMapa = mapa2;
                 Powrot_do_main_menu();
+
             break;
 
             case Sceny.USTAWIENIA:
@@ -287,6 +308,7 @@ public class Main : Game {
             if (obiekt.obszar.Intersects(gracz.obszar)) {
 
                 nastepny_poziom = true;
+               
 
             }
 
@@ -299,7 +321,7 @@ public class Main : Game {
 
         foreach (var obiekt in ZebranePozytywne) {
             Pozytywne_obiekty.Remove(obiekt);
-            Gracz.Punkty += 100;
+            Gracz.Punkty += obiekt.Punkty;
         }
 
 
@@ -461,7 +483,7 @@ public class Main : Game {
                     _spriteBatch.Draw(skrzynia,dest,Color.White);
 
                 }
-                Info_o_poziomie(1, 30);
+                Info_o_poziomie(1, 40);
 
             break;
 
@@ -484,15 +506,15 @@ public class Main : Game {
                 foreach (var tekstura in mapa2) {
 
                     Rectangle dest = new (
-                        (int)(tekstura.Key.X * rozmiar_bloku*Main.skalaX),
-                        (int)(tekstura.Key.Y * rozmiar_bloku*Main.skalaY),
-                        (int)(rozmiar_bloku*Main.skalaX),
-                        (int)(rozmiar_bloku*Main.skalaY)
+                        (int)(tekstura.Key.X * rozmiar_bloku*skalaX),
+                        (int)(tekstura.Key.Y * rozmiar_bloku*skalaY),
+                        (int)(rozmiar_bloku*skalaX),
+                        (int)(rozmiar_bloku*skalaY)
                     );
                     _spriteBatch.Draw(skrzynia,dest,Color.White);
 
                 }
-                Info_o_poziomie(2, 40);
+                Info_o_poziomie(2, 70);
 
             break;
 
@@ -565,6 +587,7 @@ public class Main : Game {
         int czas = limit_czasu-licznik_sekund;
         if (czas < 1){
             czas = 0;
+            Gracz.Zycie = 0;
         }
         _spriteBatch.DrawString(font, "POZIOM "+ nr, new Vector2(545 * skalaX, 15 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
         _spriteBatch.DrawString(font, "WYNIK: "+Gracz.Punkty, new Vector2(20 * skalaX, 980 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
@@ -585,28 +608,32 @@ public class Main : Game {
             var mouseState = Mouse.GetState();
             if ((mouseState.LeftButton == ButtonState.Pressed)&&(menu_hover)) {
             aktywnascena = Sceny.MENU;
+            reset = false;
             }
     
     }
     void Reset_poziomu(){
-     
+    licznik_sekund=0;
     gracz.pozycja.X = 70;
     gracz.pozycja.Y = 800;
-
+    Uzywki.Clear();
+    Pozytywne_obiekty.Clear();
     }
-
     void poziom_zycia(){
         if (Gracz.Zycie == 3){
-            _spriteBatch.Draw(serce, new Vector2(17*rozmiar_bloku,0),Color.White);
-            _spriteBatch.Draw(serce, new Vector2(18*rozmiar_bloku,0),Color.White);
-            _spriteBatch.Draw(serce, new Vector2(19*rozmiar_bloku,0),Color.White);
+            _spriteBatch.Draw(serce, new Rectangle((int)(17*rozmiar_bloku*skalaX),(int)(0*rozmiar_bloku*skalaY),(int)(rozmiar_bloku*skalaX),(int)(rozmiar_bloku*skalaY)),Color.White);
+            _spriteBatch.Draw(serce, new Rectangle((int)(18*rozmiar_bloku*skalaX),(int)(0*rozmiar_bloku*skalaY),(int)(rozmiar_bloku*skalaX),(int)(rozmiar_bloku*skalaY)),Color.White);
+            _spriteBatch.Draw(serce, new Rectangle((int)(19*rozmiar_bloku*skalaX),(int)(0*rozmiar_bloku*skalaY),(int)(rozmiar_bloku*skalaX),(int)(rozmiar_bloku*skalaY)),Color.White);
+
         }
         if (Gracz.Zycie == 2){
-            _spriteBatch.Draw(serce, new Vector2(18*rozmiar_bloku,0),Color.White);
-            _spriteBatch.Draw(serce, new Vector2(19*rozmiar_bloku,0),Color.White);
+            _spriteBatch.Draw(serce, new Rectangle((int)(18*rozmiar_bloku*skalaX),(int)(0*rozmiar_bloku*skalaY),(int)(rozmiar_bloku*skalaX),(int)(rozmiar_bloku*skalaY)),Color.White);
+            _spriteBatch.Draw(serce, new Rectangle((int)(19*rozmiar_bloku*skalaX),(int)(0*rozmiar_bloku*skalaY),(int)(rozmiar_bloku*skalaX),(int)(rozmiar_bloku*skalaY)),Color.White);
+
         }
         if (Gracz.Zycie == 1){
-            _spriteBatch.Draw(serce, new Vector2(19*rozmiar_bloku,0),Color.White);
+            _spriteBatch.Draw(serce, new Rectangle((int)(19*rozmiar_bloku*skalaX),(int)(0*rozmiar_bloku*skalaY),(int)(rozmiar_bloku*skalaX),(int)(rozmiar_bloku*skalaY)),Color.White);
+
         }
     }
 

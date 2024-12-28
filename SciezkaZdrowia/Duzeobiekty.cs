@@ -9,17 +9,11 @@ using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
-namespace SciezkaZdrowia {
+namespace SciezkaZdrowia
+{
+   internal class Duzeobiekty : Obiekt {
+      public Duzeobiekty(Texture2D tekstura, Vector2 pozycja) : base(tekstura,pozycja){}
 
-    internal class PozytywnyObiekt : Obiekt {
-        public int Punkty { get; set; }
-
-        public PozytywnyObiekt(Texture2D tekstura, Vector2 pozycja, int punkty) : base(tekstura,pozycja){
-
-            Punkty = punkty;
-        }
-
-
-    }
-
+   }
+   
 }
