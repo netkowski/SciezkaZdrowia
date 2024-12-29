@@ -22,6 +22,9 @@ enum Sceny {
     INFORMACJE,
     POZIOM1,
     POZIOM2,
+    POZIOM3,
+    POZIOM4,
+    POZIOM5
 }
 
 public class Main : Game {
@@ -31,7 +34,7 @@ public class Main : Game {
     public static float skalaY;
     public float skalaTekstu;
     public static Dictionary<Vector2, int> aktywnaMapa;
-    public static Dictionary<Vector2,int> mapa1, mapa2;
+    public static Dictionary<Vector2,int> mapa1, mapa2, mapa3, mapa4, mapa5;
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     private Texture2D[] animacja;
@@ -68,6 +71,9 @@ public class Main : Game {
         aktywnascena = Sceny.MENU;
         mapa1 = LadowanieMapy("/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Pliki/mapa1.csv");
         mapa2 = LadowanieMapy("/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Pliki/mapa2.csv");
+        mapa3 = LadowanieMapy("/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Pliki/mapa3.csv");
+        mapa4 = LadowanieMapy("/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Pliki/mapa4.csv");
+        mapa5 = LadowanieMapy("/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Pliki/mapa5.csv");
 
     }
 
@@ -138,13 +144,53 @@ public class Main : Game {
 
         }
 
+        foreach (var tekstura in mapa3) {
+
+            Rectangle skrzyniaObszar = new Rectangle(
+                (int)(tekstura.Key.X * rozmiar_bloku * Main.skalaX),
+                (int)(tekstura.Key.Y * rozmiar_bloku * Main.skalaY),
+                (int)(rozmiar_bloku * Main.skalaX),
+                (int)(rozmiar_bloku * Main.skalaY)
+            );
+
+            kolizje.Add(skrzyniaObszar);
+
+        }
+
+        foreach (var tekstura in mapa4) {
+
+            Rectangle skrzyniaObszar = new Rectangle(
+                (int)(tekstura.Key.X * rozmiar_bloku * Main.skalaX),
+                (int)(tekstura.Key.Y * rozmiar_bloku * Main.skalaY),
+                (int)(rozmiar_bloku * Main.skalaX),
+                (int)(rozmiar_bloku * Main.skalaY)
+            );
+
+            kolizje.Add(skrzyniaObszar);
+
+        }
+
+        foreach (var tekstura in mapa5) {
+
+            Rectangle skrzyniaObszar = new Rectangle(
+                (int)(tekstura.Key.X * rozmiar_bloku * Main.skalaX),
+                (int)(tekstura.Key.Y * rozmiar_bloku * Main.skalaY),
+                (int)(rozmiar_bloku * Main.skalaX),
+                (int)(rozmiar_bloku * Main.skalaY)
+            );
+
+            kolizje.Add(skrzyniaObszar);
+
+        }
+
         gracz = new Gracz(animacja[ktora_klatka], new Vector2(70,800), kolizje, 3);
         
     }
 
     protected override void Update(GameTime gameTime) {
-        Console.WriteLine($"[Update] aktywnascena: {aktywnascena}, aktywnaMapa: {(aktywnaMapa == mapa1 ? "mapa1" : "mapa2")}");
+        
         if (isResetting) return;
+
         timer += 1;
 
         if (timer % 60 == 0) {
@@ -231,17 +277,22 @@ public class Main : Game {
             break;
 
             case Sceny.POZIOM2:
-            if (aktywnascena != Sceny.POZIOM2) {
-                Console.WriteLine("[POZIOM2] Aktywna scena już nie jest POZIOM2, przerywam...");
-                break; // Wyjdź, jeśli scena się zmieniła
-            }
+
                 if (!reset) {
 
-                    //aktywnascena = Sceny.POZIOM2;  
                     aktywnaMapa = mapa2;
                     Reset_poziomu();
                     reset = true;
 
+                }
+
+                if (nastepny_poziom) {
+
+                    obiekty_dodane = false;
+                    nastepny_poziom = false;
+                    reset = false;
+                    aktywnascena = Sceny.POZIOM3;
+                    
                 }
 
                 Powrot_do_main_menu();
@@ -251,6 +302,96 @@ public class Main : Game {
                     Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(1*rozmiar_bloku,1*rozmiar_bloku),100));
 
                     Pozostale.Add(new Obiektinnychrozmiarow(meta,new Vector2(18*rozmiar_bloku,rozmiar_bloku),1f,2f));
+                    obiekty_dodane = true;       
+
+                }
+
+            break;
+
+            case Sceny.POZIOM3:
+
+                if (!reset) {
+
+                    aktywnaMapa = mapa3;
+                    Reset_poziomu();
+                    reset = true;
+
+                }
+
+                if (nastepny_poziom) {
+
+                    obiekty_dodane = false;
+                    nastepny_poziom = false;
+                    reset = false;
+                    aktywnascena = Sceny.POZIOM4;
+                    
+                }
+
+                Powrot_do_main_menu();
+
+                if (!obiekty_dodane) {
+
+                    Pozostale.Add(new Obiektinnychrozmiarow(meta,new Vector2(3*rozmiar_bloku,13*rozmiar_bloku),1f,2f));
+                    obiekty_dodane = true;       
+
+                }
+
+            break;
+
+            case Sceny.POZIOM4:
+
+                if (!reset) {
+
+                    aktywnaMapa = mapa4;
+                    Reset_poziomu();
+                    reset = true;
+
+                }
+
+                if (nastepny_poziom) {
+
+                    obiekty_dodane = false;
+                    nastepny_poziom = false;
+                    reset = false;
+                    aktywnascena = Sceny.POZIOM5;
+                    
+                }
+
+                Powrot_do_main_menu();
+
+                if (!obiekty_dodane) {
+
+                    Pozostale.Add(new Obiektinnychrozmiarow(meta,new Vector2(4*rozmiar_bloku,13*rozmiar_bloku),1f,2f));
+                    obiekty_dodane = true;       
+
+                }
+
+            break;
+        
+            case Sceny.POZIOM5:
+
+                if (!reset) {
+
+                    aktywnaMapa = mapa5;
+                    Reset_poziomu();
+                    reset = true;
+
+                }
+
+                if (nastepny_poziom) {
+
+                    obiekty_dodane = false;
+                    nastepny_poziom = false;
+                    reset = false;
+                    aktywnascena = Sceny.MENU;
+                    
+                }
+
+                Powrot_do_main_menu();
+
+                if (!obiekty_dodane) {
+
+                    Pozostale.Add(new Obiektinnychrozmiarow(meta,new Vector2(5*rozmiar_bloku,13*rozmiar_bloku),1f,2f));
                     obiekty_dodane = true;       
 
                 }
@@ -326,7 +467,7 @@ public class Main : Game {
 
             obiekt.Update(gameTime);
 
-            if (obiekt.obszar.Intersects(gracz.obszar)) {
+            if ((obiekt.obszar.Intersects(gracz.obszar))||Keyboard.GetState().IsKeyDown(Keys.K)) {
 
                 nastepny_poziom = true;
                
@@ -572,6 +713,120 @@ public class Main : Game {
 
             break;
 
+            case Sceny.POZIOM3:
+
+                _spriteBatch.Draw(tlo_poziom1,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
+                _spriteBatch.Draw(animacja[ktora_klatka], gracz.obszar, Color.White);
+
+                foreach (var obiekt in Uzywki) {
+
+                    _spriteBatch.Draw(obiekt.tekstura, obiekt.obszar, Color.White);
+
+                }
+                foreach (var obiekt in Pozostale) {
+
+                    _spriteBatch.Draw(obiekt.tekstura, obiekt.obszar, Color.White);
+
+                }
+                foreach (var obiekt in Pozytywne_obiekty) {
+
+                    _spriteBatch.Draw(obiekt.tekstura, obiekt.obszar, Color.White);
+
+                }
+
+                foreach (var tekstura in mapa3) {
+
+                    Rectangle dest = new (
+                        (int)(tekstura.Key.X * rozmiar_bloku*skalaX),
+                        (int)(tekstura.Key.Y * rozmiar_bloku*skalaY),
+                        (int)(rozmiar_bloku*skalaX),
+                        (int)(rozmiar_bloku*skalaY)
+                    );
+
+                    _spriteBatch.Draw(skrzynia,dest,Color.White);
+
+                }
+
+                Info_o_poziomie(3, 100);
+
+            break;
+
+            case Sceny.POZIOM4:
+
+                _spriteBatch.Draw(tlo_poziom1,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
+                _spriteBatch.Draw(animacja[ktora_klatka], gracz.obszar, Color.White);
+
+                foreach (var obiekt in Uzywki) {
+
+                    _spriteBatch.Draw(obiekt.tekstura, obiekt.obszar, Color.White);
+
+                }
+                foreach (var obiekt in Pozostale) {
+
+                    _spriteBatch.Draw(obiekt.tekstura, obiekt.obszar, Color.White);
+
+                }
+                foreach (var obiekt in Pozytywne_obiekty) {
+
+                    _spriteBatch.Draw(obiekt.tekstura, obiekt.obszar, Color.White);
+
+                }
+
+                foreach (var tekstura in mapa4) {
+
+                    Rectangle dest = new (
+                        (int)(tekstura.Key.X * rozmiar_bloku*skalaX),
+                        (int)(tekstura.Key.Y * rozmiar_bloku*skalaY),
+                        (int)(rozmiar_bloku*skalaX),
+                        (int)(rozmiar_bloku*skalaY)
+                    );
+
+                    _spriteBatch.Draw(skrzynia,dest,Color.White);
+
+                }
+
+                Info_o_poziomie(4, 110);
+
+            break;
+
+            case Sceny.POZIOM5:
+
+                _spriteBatch.Draw(tlo_poziom1,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
+                _spriteBatch.Draw(animacja[ktora_klatka], gracz.obszar, Color.White);
+
+                foreach (var obiekt in Uzywki) {
+
+                    _spriteBatch.Draw(obiekt.tekstura, obiekt.obszar, Color.White);
+
+                }
+                foreach (var obiekt in Pozostale) {
+
+                    _spriteBatch.Draw(obiekt.tekstura, obiekt.obszar, Color.White);
+
+                }
+                foreach (var obiekt in Pozytywne_obiekty) {
+
+                    _spriteBatch.Draw(obiekt.tekstura, obiekt.obszar, Color.White);
+
+                }
+
+                foreach (var tekstura in mapa5) {
+
+                    Rectangle dest = new (
+                        (int)(tekstura.Key.X * rozmiar_bloku*skalaX),
+                        (int)(tekstura.Key.Y * rozmiar_bloku*skalaY),
+                        (int)(rozmiar_bloku*skalaX),
+                        (int)(rozmiar_bloku*skalaY)
+                    );
+
+                    _spriteBatch.Draw(skrzynia,dest,Color.White);
+
+                }
+
+                Info_o_poziomie(5, 120);
+
+            break;
+
             case Sceny.INFORMACJE:
 
             menu = new Rectangle ((int)(900*skalaX),(int)(950*skalaY),(int)(335*skalaX),(int)(33*skalaY));
@@ -711,6 +966,7 @@ public class Main : Game {
         gracz.pozycja.X = 70;
         gracz.pozycja.Y = 800;
         obiekty_dodane = false;
+        nastepny_poziom = false;
 
     }
     void poziom_zycia() {
