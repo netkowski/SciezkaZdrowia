@@ -19,7 +19,6 @@ namespace SciezkaZdrowia {
             Punkty = punkty;
         }
 
-
     }
 
 }

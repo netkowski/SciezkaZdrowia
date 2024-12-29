@@ -14,15 +14,14 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 namespace SciezkaZdrowia {
 
     internal class Gracz : Obiekt{
-
-        private List<Rectangle> kolizje;
+        public static int Zycie;
+        public static int Punkty = 0;
         public static int kierunek;
+        private List<Rectangle> kolizje;
         private int poprzedni_kierunek;
         private Rectangle Obszar_gracza;
         private Vector2 Przyspieszenie;
         private bool skok,skok2,lewo,prawo;
-        public static int Zycie;
-        public static int Punkty = 0;
         public override Rectangle obszar{
 
             get {
@@ -48,6 +47,7 @@ namespace SciezkaZdrowia {
 public override void Update(GameTime gameTime) {
 
     Aktualizacja_Kolizji();
+
     Obszar_gracza = new Rectangle(
         (int)(pozycja.X * Main.skalaX),
         (int)(pozycja.Y * Main.skalaY), 
@@ -164,12 +164,15 @@ private bool Kolizja(List<Rectangle> kolizje) {
         }
 
     }
+
     return false; 
 
 }
 
 public int poziom_zycia(){
+
     return Zycie;
+    
 }
 
     }

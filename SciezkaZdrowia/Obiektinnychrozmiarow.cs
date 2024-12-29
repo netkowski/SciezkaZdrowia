@@ -16,20 +16,27 @@ namespace SciezkaZdrowia
         private float wysokosc;
 
         public override Rectangle obszar {
+            
             get {
+
                 return new Rectangle(
                     (int)(pozycja.X * Main.skalaX),
                     (int)(pozycja.Y * Main.skalaY),
                     (int)(szerokosc * Main.rozmiar_bloku * Main.skalaX),
                     (int)(wysokosc * Main.rozmiar_bloku * Main.skalaY)
                 );
+
             }
+
         }
 
         public Obiektinnychrozmiarow(Texture2D tekstura, Vector2 pozycja, float szerokosc, float wysokosc): base(tekstura, pozycja) {
+
             this.szerokosc = szerokosc;
             this.wysokosc = wysokosc;
+            
         }
+
    }
    
 }
