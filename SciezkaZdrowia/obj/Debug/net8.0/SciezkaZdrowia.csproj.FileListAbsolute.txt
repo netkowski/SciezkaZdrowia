@@ -63,3 +63,5 @@
 /home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/Fonts/8bitfont.xnb
 /home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/serce.xnb
 /home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/meta.xnb
+/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/jablko.xnb
+/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/papieros.xnb

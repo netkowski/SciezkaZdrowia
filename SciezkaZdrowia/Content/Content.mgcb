@@ -80,6 +80,18 @@
 /processorParam:TextureFormat=Color
 /build:front2.png
 
+#begin jablko.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:jablko.png
+
 #begin lewo1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -116,7 +128,7 @@
 /processorParam:TextureFormat=Color
 /build:meta.png
 
-#begin meta.png
+#begin papieros.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -126,7 +138,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:meta.png
+/build:papieros.png
 
 #begin prawo1.png
 /importer:TextureImporter

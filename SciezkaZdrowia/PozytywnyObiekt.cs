@@ -11,14 +11,13 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace SciezkaZdrowia {
 
-    internal class PozytywnyObiekt : Obiekt {
+    internal class PozytywnyObiekt : Obiektinnychrozmiarow {
         public int Punkty { get; set; }
 
-        public PozytywnyObiekt(Texture2D tekstura, Vector2 pozycja, int punkty) : base(tekstura,pozycja){
-
+        public PozytywnyObiekt(Texture2D tekstura, Vector2 pozycja, int punkty,float szerokosc, float wysokosc) 
+            : base(tekstura, pozycja, szerokosc, wysokosc) {
             Punkty = punkty;
         }
-
     }
 
 }

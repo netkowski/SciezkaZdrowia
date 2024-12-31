@@ -10,10 +10,12 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace SciezkaZdrowia {
-   internal class Uzywka : Obiekt {
 
-      public Uzywka(Texture2D tekstura, Vector2 pozycja) : base(tekstura,pozycja) {}
+    internal class Uzywka : Obiektinnychrozmiarow {
 
-   }
-   
+        public Uzywka(Texture2D tekstura, Vector2 pozycja, float szerokosc, float wysokosc) 
+            : base(tekstura, pozycja, szerokosc, wysokosc) {
+        }
+
+    }
 }
