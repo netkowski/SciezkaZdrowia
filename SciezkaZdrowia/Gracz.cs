@@ -57,14 +57,41 @@ public override void Update(GameTime gameTime) {
     
     if ((Keyboard.GetState().IsKeyDown(Keys.Right))&&prawo) {
 
-        Przyspieszenie.X = 4;
+        if (Main.spozyto_alkohol == false) {
+            if (Main.spozyto_papierosy == false){
+                Przyspieszenie.X = 4;
+            } else {
+
+                Przyspieszenie.X = 1;
+            }
         kierunek = 2;
+        } else {
+
+        Przyspieszenie.X = -4;
+        kierunek = 1;
+        }
+        
         poprzedni_kierunek = kierunek;
 
     } else if ((Keyboard.GetState().IsKeyDown(Keys.Left)&&lewo)) {
 
-        Przyspieszenie.X = -4;
+
+        if (Main.spozyto_alkohol == false) {
+
+            if (Main.spozyto_papierosy == false){
+                Przyspieszenie.X = -4;
+            } else {
+
+                Przyspieszenie.X = -1;
+            }
         kierunek = 1;
+        } else {
+
+        Przyspieszenie.X = 4;
+        kierunek = 2;
+        }
+
+
         poprzedni_kierunek = kierunek;
         
     } else {

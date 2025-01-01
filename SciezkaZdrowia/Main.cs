@@ -34,6 +34,7 @@ public class Main : Game {
     public static float skalaX;
     public static float skalaY;
     public float skalaTekstu;
+    public static bool spozyto_alkohol,spozyto_papierosy;
     public static Dictionary<Vector2, int> aktywnaMapa;
     public static Dictionary<Vector2,int> mapa1, mapa2, mapa3, mapa4, mapa5;
     private GraphicsDeviceManager _graphics;
@@ -62,6 +63,7 @@ public class Main : Game {
     private bool nowagra_hover,ustawienia_hover,informacje_hover,rozdzielczosc1_hover,rozdzielczosc2_hover,rozdzielczosc3_hover,menu_hover,wyjscie_hover;
     private bool koniec_czasu,wygrana;
     private int licznik;
+    private int timer_efektu;
     private int ktora_klatka;
     private int maxHeight = (int)(16*rozmiar_bloku);
     private int maxWidth = (int)(20*rozmiar_bloku);
@@ -190,7 +192,7 @@ public class Main : Game {
 
         }
 
-        gracz = new Gracz(animacja[ktora_klatka], new Vector2(70,800), kolizje, 3);
+        gracz = new Gracz(animacja[ktora_klatka], new Vector2(70,840), kolizje, 3);
         
     }
 
@@ -203,6 +205,7 @@ public class Main : Game {
         if (timer % 60 == 0) {
 
             licznik_sekund += 1;
+            timer_efektu += 1;
 
         }
 
@@ -277,6 +280,8 @@ public class Main : Game {
                     Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2((float)9.25*rozmiar_bloku,14*rozmiar_bloku),(float)0.5,1));
                     Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2((float)10.25*rozmiar_bloku,14*rozmiar_bloku),(float)0.5,1));
                     Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2((float)11.25*rozmiar_bloku,14*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2((float)16.25*rozmiar_bloku,13*rozmiar_bloku),(float)0.5,1));
+
 
                     Pozostale.Add(new Obiektinnychrozmiarow(meta,new Vector2(18*rozmiar_bloku,13*rozmiar_bloku),1f,2f));
                     obiekty_dodane = true;
@@ -312,6 +317,7 @@ public class Main : Game {
                     Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_jablka, new Vector2(1*rozmiar_bloku,8*rozmiar_bloku),50,1,1));
                     Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_jablka, new Vector2(18*rozmiar_bloku,1*rozmiar_bloku),50,1,1));
                     Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_jablka, new Vector2(15*rozmiar_bloku,10*rozmiar_bloku),50,1,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_jablka, new Vector2(5*rozmiar_bloku,9*rozmiar_bloku),50,1,1));
 
                     Uzywki.Add(new Uzywka(tekstura_papierosa,new Vector2(5*rozmiar_bloku,4*rozmiar_bloku),1,(float)0.5));
                     Uzywki.Add(new Uzywka(tekstura_papierosa,new Vector2(6*rozmiar_bloku,4*rozmiar_bloku),1,(float)0.5));
@@ -322,6 +328,8 @@ public class Main : Game {
                     Uzywki.Add(new Uzywka(tekstura_papierosa,new Vector2(14*rozmiar_bloku,5*rozmiar_bloku),1,(float)0.5));
                     Uzywki.Add(new Uzywka(tekstura_papierosa,new Vector2(15*rozmiar_bloku,5*rozmiar_bloku),1,(float)0.5));
                     Uzywki.Add(new Uzywka(tekstura_papierosa,new Vector2(18*rozmiar_bloku,14*rozmiar_bloku),1,(float)0.5));
+                    Uzywki.Add(new Uzywka(tekstura_papierosa,new Vector2(5*rozmiar_bloku,7*rozmiar_bloku),1,(float)0.5));
+                    Uzywki.Add(new Uzywka(tekstura_papierosa,new Vector2(6*rozmiar_bloku,7*rozmiar_bloku),1,(float)0.5));
 
                     Pozostale.Add(new Obiektinnychrozmiarow(meta,new Vector2(6*rozmiar_bloku,13*rozmiar_bloku),1f,2f));
                     obiekty_dodane = true;       
@@ -404,9 +412,16 @@ public class Main : Game {
                     Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(5*rozmiar_bloku,7*rozmiar_bloku),1,1));
                     Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(7*rozmiar_bloku,12*rozmiar_bloku),1,1));
                     Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(8*rozmiar_bloku,12*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(12*rozmiar_bloku,10*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(13*rozmiar_bloku,10*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(14*rozmiar_bloku,10*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(15*rozmiar_bloku,10*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(16*rozmiar_bloku,10*rozmiar_bloku),1,1));
 
                     Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(5*rozmiar_bloku,1*rozmiar_bloku),150,1,1));
                     Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(7*rozmiar_bloku,8*rozmiar_bloku),150,1,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(12*rozmiar_bloku,8*rozmiar_bloku),150,1,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(17*rozmiar_bloku,4*rozmiar_bloku),150,1,1));
 
 
 
@@ -441,7 +456,30 @@ public class Main : Game {
 
                 if (!obiekty_dodane) {
 
-                    Pozostale.Add(new Obiektinnychrozmiarow(meta,new Vector2(5*rozmiar_bloku,13*rozmiar_bloku),1f,2f));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(17*rozmiar_bloku,14*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(18*rozmiar_bloku,14*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(3*rozmiar_bloku,12*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(4*rozmiar_bloku,4*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(5*rozmiar_bloku,4*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(7*rozmiar_bloku,4*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(8*rozmiar_bloku,4*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(10*rozmiar_bloku,7*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(11*rozmiar_bloku,7*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(9*rozmiar_bloku,14*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(10*rozmiar_bloku,14*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(11*rozmiar_bloku,14*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(12*rozmiar_bloku,14*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(13*rozmiar_bloku,14*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(16*rozmiar_bloku,9*rozmiar_bloku),1,1));
+
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(4*rozmiar_bloku,8*rozmiar_bloku),200,1,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(14*rozmiar_bloku,4*rozmiar_bloku),200,1,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(18*rozmiar_bloku,1*rozmiar_bloku),200,1,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(9*rozmiar_bloku,13*rozmiar_bloku),200,1,1));
+
+
+
+                    Pozostale.Add(new Obiektinnychrozmiarow(meta,new Vector2(13*rozmiar_bloku,1*rozmiar_bloku),1f,2f));
                     obiekty_dodane = true;       
 
                 }
@@ -536,7 +574,30 @@ public class Main : Game {
             Uzywki.Remove(obiekt);
             Gracz.Zycie--;
 
+            if (aktywnascena == Sceny.POZIOM2) {
+
+                spozyto_papierosy = true;
+                timer_efektu = 0;
+
+            }
+
+            if (aktywnascena == Sceny.POZIOM3) {
+
+                spozyto_alkohol = true;
+                timer_efektu = 0;
+
+            }
+        
+
         }
+
+        if (timer_efektu == 5) {
+
+            spozyto_alkohol = false;
+            spozyto_papierosy = false;
+
+        }
+
 
         foreach (var obiekt in ZebranePozytywne) {
 
@@ -848,7 +909,7 @@ public class Main : Game {
 
                 }
 
-                Info_o_poziomie(4, 110);
+                Info_o_poziomie(4, 45);
 
             break;
 
@@ -886,7 +947,7 @@ public class Main : Game {
 
                 }
 
-                Info_o_poziomie(5, 120);
+                Info_o_poziomie(5, 60);
 
             break;
 
@@ -915,8 +976,8 @@ public class Main : Game {
             menu = new Rectangle ((int)(900*skalaX),(int)(950*skalaY),(int)(335*skalaX),(int)(33*skalaY));
 
             _spriteBatch.DrawString(font, "KONIEC GRY", new Vector2(350 * skalaX, 70 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.7), SpriteEffects.None, 0);
-            _spriteBatch.DrawString(font, "UDALO CI SIE UZYSKAC "+Gracz.Punkty, new Vector2(150 * skalaX, 600 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.4), SpriteEffects.None, 0);
-            _spriteBatch.DrawString(font, "PUNKTOW", new Vector2(910 * skalaX, 600 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.4), SpriteEffects.None, 0);
+            _spriteBatch.DrawString(font, "UDALO CI SIE UZYSKAC "+Gracz.Punkty, new Vector2(120 * skalaX, 600 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.4), SpriteEffects.None, 0);
+            _spriteBatch.DrawString(font, "PUNKTOW", new Vector2(920 * skalaX, 600 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.4), SpriteEffects.None, 0);
 
             if (wygrana) {
 
@@ -1084,7 +1145,7 @@ public class Main : Game {
         Pozostale.Clear();
         licznik_sekund=0;
         gracz.pozycja.X = 70;
-        gracz.pozycja.Y = 830;
+        gracz.pozycja.Y = 850;
         obiekty_dodane = false;
         nastepny_poziom = false;
         wygrana = false;
