@@ -13,6 +13,8 @@ using Microsoft.Xna.Framework.Design;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 
 namespace SciezkaZdrowia;
 
@@ -65,6 +67,11 @@ public class Main : Game {
     private Sceny aktywnascena;
     private SpriteFont font;
     private Rectangle pozycja_myszki,nowagra,ustawienia,informacje,rozdzielczosc1,rozdzielczosc2,rozdzielczosc3,menu,wyjscie;
+    private Song theme;
+    private SoundEffect koniec_sfx;
+    private SoundEffect punkt_sfx;
+    private SoundEffect utrata_sfx;
+    private SoundEffect levelup_sfx;
     private bool nastepny_poziom = false;
     private bool reset = false;
     private bool koniec = false;
@@ -79,6 +86,7 @@ public class Main : Game {
     private int maxWidth = (int)(20*rozmiar_bloku);
     private int timer,licznik_sekund = 0;
     private int limit_czasu;
+    
     
     public Main() {
 
@@ -142,10 +150,20 @@ public class Main : Game {
         energetyk = Content.Load<Texture2D>("energetyk");
         sok_pomaranczowy = Content.Load<Texture2D>("sok_pomaranczowy");
 
+        theme = Content.Load<Song>("Audio/theme");
+        koniec_sfx = Content.Load<SoundEffect>("Audio/koniec");
+        punkt_sfx = Content.Load<SoundEffect>("Audio/punkt");
+        utrata_sfx = Content.Load<SoundEffect>("Audio/utrata");
+        levelup_sfx = Content.Load<SoundEffect>("Audio/level_up");
+        MediaPlayer.Volume = 0;
+        MediaPlayer.IsRepeating = true;
+
+
         Uzywki = new();
         Pozytywne_obiekty = new();
         Pozostale = new();
 
+        
         List<Rectangle> kolizje = new List<Rectangle>();
 
         foreach (var tekstura in mapa1) {
@@ -220,6 +238,7 @@ public class Main : Game {
     protected override void Update(GameTime gameTime) {
         
         if (isResetting) return;
+        
 
         timer += 1;
 
@@ -234,14 +253,20 @@ public class Main : Game {
         var mouseState = Mouse.GetState();
         pozycja_myszki = new Rectangle(mouseState.X,mouseState.Y,1,1);
 
-     
+       
+
         switch (aktywnascena) {
             
             case Sceny.MENU:
 
+                
+                MediaPlayer.Play(theme);
+                
+
                 if ((mouseState.LeftButton == ButtonState.Pressed)&&(nowagra_hover)) {
 
                     PelnyResetGry();
+                    MediaPlayer.Volume = 1f;
 
                 }
 
@@ -282,6 +307,7 @@ public class Main : Game {
                     nastepny_poziom = false;
                     reset = false;
                     aktywnascena = Sceny.POZIOM2;
+                    levelup_sfx.Play();
                     
                 }
 
@@ -290,7 +316,7 @@ public class Main : Game {
                 Koniec();
 
                 if (!obiekty_dodane) {
-
+                    
                     Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_banana, new Vector2(7*rozmiar_bloku,7*rozmiar_bloku),25,1,1));
                     Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_banana, new Vector2(9*rozmiar_bloku,7*rozmiar_bloku),25,1,1));
                     Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_banana, new Vector2(11*rozmiar_bloku,7*rozmiar_bloku),25,1,1));
@@ -327,6 +353,8 @@ public class Main : Game {
                     nastepny_poziom = false;
                     reset = false;
                     aktywnascena = Sceny.POZIOM3;
+                    levelup_sfx.Play();
+
                     
                 }
 
@@ -374,6 +402,8 @@ public class Main : Game {
                     nastepny_poziom = false;
                     reset = false;
                     aktywnascena = Sceny.POZIOM4;
+                    levelup_sfx.Play();
+
                     
                 }
 
@@ -416,6 +446,8 @@ public class Main : Game {
                     nastepny_poziom = false;
                     reset = false;
                     aktywnascena = Sceny.POZIOM5;
+                    levelup_sfx.Play();
+
                     
                 }
 
@@ -560,6 +592,7 @@ public class Main : Game {
             if (obiekt.obszar.Intersects(gracz.obszar)) {
 
                 ZebraneUzywki.Add(obiekt);
+                utrata_sfx.Play();
 
             }
 
@@ -572,6 +605,7 @@ public class Main : Game {
             if (obiekt.obszar.Intersects(gracz.obszar)) {
 
                 ZebranePozytywne.Add(obiekt);
+                punkt_sfx.Play();
 
             }
 
@@ -617,7 +651,6 @@ public class Main : Game {
             spozyto_papierosy = false;
 
         }
-
 
         foreach (var obiekt in ZebranePozytywne) {
 
@@ -672,10 +705,10 @@ public class Main : Game {
         }
 
         if (koniec) {
- 
-            aktywnascena = Sceny.KONIEC;
-            koniec = false;
 
+            koniec = false; 
+            aktywnascena = Sceny.KONIEC;
+            
         }
 
         if (Window.ClientBounds.Width>maxWidth) {
@@ -1154,7 +1187,8 @@ public class Main : Game {
         
             aktywnascena = Sceny.KONIEC;
             koniec = false;
-
+            MediaPlayer.Volume = 0f;
+            koniec_sfx.Play();
         }
 
     }

@@ -10,6 +10,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 
 namespace SciezkaZdrowia {
 
@@ -21,6 +23,7 @@ namespace SciezkaZdrowia {
         private int poprzedni_kierunek;
         private Rectangle Obszar_gracza;
         private Vector2 Przyspieszenie;
+        private bool wcisnieto_W;
         private bool skok,skok2,lewo,prawo;
         public override Rectangle obszar{
 
@@ -55,7 +58,7 @@ public override void Update(GameTime gameTime) {
         (int)(1.5*Main.rozmiar_bloku* Main.skalaY)
     );
     
-    if ((Keyboard.GetState().IsKeyDown(Keys.Right))&&prawo) {
+    if (((Keyboard.GetState().IsKeyDown(Keys.Right))||(Keyboard.GetState().IsKeyDown(Keys.D)))&&prawo) {
 
         if (Main.spozyto_alkohol == false) {
             if (Main.spozyto_papierosy == false){
@@ -73,7 +76,7 @@ public override void Update(GameTime gameTime) {
         
         poprzedni_kierunek = kierunek;
 
-    } else if ((Keyboard.GetState().IsKeyDown(Keys.Left)&&lewo)) {
+    } else if (((Keyboard.GetState().IsKeyDown(Keys.Left)||(Keyboard.GetState().IsKeyDown(Keys.A)))&&lewo)) {
 
 
         if (Main.spozyto_alkohol == false) {
@@ -117,18 +120,33 @@ public override void Update(GameTime gameTime) {
         
     }
 
-    if (Keyboard.GetState().IsKeyDown(Keys.Up) && skok && skok2) {
+    if ((Keyboard.GetState().IsKeyDown(Keys.Up)||(Keyboard.GetState().IsKeyDown(Keys.W))) && skok && skok2) {
 
         Przyspieszenie.Y = -13;
         skok = skok2 = false;
+        Main.jump_sfx.Play();
+        if (Keyboard.GetState().IsKeyDown(Keys.W)){
+            wcisnieto_W = true;
+        }
 
     }
 
     if (Keyboard.GetState().IsKeyUp(Keys.Up)) {
 
-        skok2 = true;
+       
+
+        if (wcisnieto_W) {
+            if (Keyboard.GetState().IsKeyUp(Keys.W)) {
+
+                skok2 = true;
+                wcisnieto_W = false;
+            }
+        } else {
+             skok2 = true;
+        }
 
     }
+
 
     Przyspieszenie.Y += 1f;
 

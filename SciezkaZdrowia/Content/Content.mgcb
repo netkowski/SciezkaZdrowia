@@ -49,6 +49,36 @@
 /processorParam:TextureFormat=Color
 /build:../../../../../../../Downloads/woda.png;woda.png
 
+#begin Audio/koniec.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/koniec.mp3
+
+#begin Audio/level_up.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/level_up.mp3
+
+#begin Audio/punkt.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/punkt.mp3
+
+#begin Audio/theme.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/theme.mp3
+
+#begin Audio/utrata.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/utrata.mp3
+
 #begin banan.png
 /importer:TextureImporter
 /processor:TextureProcessor
