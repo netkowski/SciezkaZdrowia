@@ -41,12 +41,22 @@ public class Main : Game {
     private SpriteBatch _spriteBatch;
     private Texture2D[] animacja;
     private Texture2D tlo_poziom1;
+    private Texture2D tlo_poziom2;
+    private Texture2D tlo_poziom3;
+    private Texture2D tlo_poziom4;
+    private Texture2D tlo_poziom5;
     private Texture2D skrzynia;
     private Texture2D meta;
     private Texture2D tekstura_alkoholu;
     private Texture2D tekstura_wody;
     private Texture2D tekstura_papierosa;
     private Texture2D tekstura_jablka;
+    private Texture2D tekstura_banana;
+    private Texture2D tekstura_cukierka;
+    private Texture2D tekstura_tabletki;
+    private Texture2D tekstura_marihuany;
+    private Texture2D energetyk;
+    private Texture2D sok_pomaranczowy;
     private Texture2D serce;
     private List<Uzywka> Uzywki;
     private List<Obiekt>Pozostale;
@@ -107,6 +117,11 @@ public class Main : Game {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         animacja = new Texture2D[6]; 
         tlo_poziom1 = Content.Load<Texture2D>("tlo");
+        tlo_poziom2 = Content.Load<Texture2D>("tlo2");
+        tlo_poziom3 = Content.Load<Texture2D>("tlo3");
+        tlo_poziom4 = Content.Load<Texture2D>("tlo4");
+        tlo_poziom5 = Content.Load<Texture2D>("tlo5");
+
         animacja[0] = Content.Load<Texture2D>("front1");  
         animacja[1] = Content.Load<Texture2D>("front2"); 
         animacja[2] = Content.Load<Texture2D>("lewo1");  
@@ -120,6 +135,12 @@ public class Main : Game {
         meta = Content.Load<Texture2D>("meta");
         tekstura_jablka = Content.Load<Texture2D>("jablko");
         tekstura_papierosa = Content.Load<Texture2D>("papieros");
+        tekstura_banana = Content.Load<Texture2D>("banan");
+        tekstura_marihuany = Content.Load<Texture2D>("marihuana");
+        tekstura_cukierka = Content.Load<Texture2D>("cukierek");
+        tekstura_tabletki = Content.Load<Texture2D>("tabletka");
+        energetyk = Content.Load<Texture2D>("energetyk");
+        sok_pomaranczowy = Content.Load<Texture2D>("sok_pomaranczowy");
 
         Uzywki = new();
         Pozytywne_obiekty = new();
@@ -270,17 +291,17 @@ public class Main : Game {
 
                 if (!obiekty_dodane) {
 
-                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2((float)7.25*rozmiar_bloku,7*rozmiar_bloku),25,(float)0.5,1));
-                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2((float)9.25*rozmiar_bloku,7*rozmiar_bloku),25,(float)0.5,1));
-                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2((float)11.25*rozmiar_bloku,7*rozmiar_bloku),25,(float)0.5,1));
-                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2((float)16.25*rozmiar_bloku,8*rozmiar_bloku),25,(float)0.5,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_banana, new Vector2(7*rozmiar_bloku,7*rozmiar_bloku),25,1,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_banana, new Vector2(9*rozmiar_bloku,7*rozmiar_bloku),25,1,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_banana, new Vector2(11*rozmiar_bloku,7*rozmiar_bloku),25,1,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_banana, new Vector2(16*rozmiar_bloku,8*rozmiar_bloku),25,1,1));
 
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2((float)7.25*rozmiar_bloku,14*rozmiar_bloku),(float)0.5,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2((float)8.25*rozmiar_bloku,14*rozmiar_bloku),(float)0.5,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2((float)9.25*rozmiar_bloku,14*rozmiar_bloku),(float)0.5,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2((float)10.25*rozmiar_bloku,14*rozmiar_bloku),(float)0.5,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2((float)11.25*rozmiar_bloku,14*rozmiar_bloku),(float)0.5,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2((float)16.25*rozmiar_bloku,13*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(tekstura_marihuany,new Vector2(7*rozmiar_bloku,14*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_marihuany,new Vector2(8*rozmiar_bloku,14*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_marihuany,new Vector2(9*rozmiar_bloku,14*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_marihuany,new Vector2(10*rozmiar_bloku,14*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_marihuany,new Vector2(11*rozmiar_bloku,14*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_marihuany,new Vector2(16*rozmiar_bloku,13*rozmiar_bloku),1,1));
 
 
                     Pozostale.Add(new Obiektinnychrozmiarow(meta,new Vector2(18*rozmiar_bloku,13*rozmiar_bloku),1f,2f));
@@ -316,7 +337,6 @@ public class Main : Game {
                     Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_jablka, new Vector2(1*rozmiar_bloku,4*rozmiar_bloku),50,1,1));
                     Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_jablka, new Vector2(1*rozmiar_bloku,8*rozmiar_bloku),50,1,1));
                     Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_jablka, new Vector2(18*rozmiar_bloku,1*rozmiar_bloku),50,1,1));
-                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_jablka, new Vector2(15*rozmiar_bloku,10*rozmiar_bloku),50,1,1));
                     Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_jablka, new Vector2(5*rozmiar_bloku,9*rozmiar_bloku),50,1,1));
 
                     Uzywki.Add(new Uzywka(tekstura_papierosa,new Vector2(5*rozmiar_bloku,4*rozmiar_bloku),1,(float)0.5));
@@ -361,17 +381,17 @@ public class Main : Game {
 
                 if (!obiekty_dodane) {
 
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(18*rozmiar_bloku,12*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(18*rozmiar_bloku,13*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(18*rozmiar_bloku,14*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(17*rozmiar_bloku,12*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(17*rozmiar_bloku,13*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(17*rozmiar_bloku,14*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(6*rozmiar_bloku,9*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2((float)18.25*rozmiar_bloku,12*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2((float)18.25*rozmiar_bloku,13*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2((float)18.25*rozmiar_bloku,14*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2((float)17.25*rozmiar_bloku,12*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2((float)17.25*rozmiar_bloku,13*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2((float)17.25*rozmiar_bloku,14*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2((float)6.25*rozmiar_bloku,9*rozmiar_bloku),(float)0.5,1));
 
-                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(8*rozmiar_bloku,5*rozmiar_bloku),100,1,1));
-                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(1*rozmiar_bloku,1*rozmiar_bloku),100,1,1));
-                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(1*rozmiar_bloku,11*rozmiar_bloku),100,1,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2((float)8.25*rozmiar_bloku,5*rozmiar_bloku),100,(float)0.5,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2((float)1.25*rozmiar_bloku,1*rozmiar_bloku),100,(float)0.5,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2((float)1.25*rozmiar_bloku,11*rozmiar_bloku),100,(float)0.5,1));
 
                     Pozostale.Add(new Obiektinnychrozmiarow(meta,new Vector2(18*rozmiar_bloku,rozmiar_bloku),1f,2f));
                     obiekty_dodane = true;       
@@ -403,25 +423,25 @@ public class Main : Game {
 
                 if (!obiekty_dodane) {
 
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(4*rozmiar_bloku,14*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(5*rozmiar_bloku,14*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(4*rozmiar_bloku,13*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(5*rozmiar_bloku,13*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(4*rozmiar_bloku,12*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(5*rozmiar_bloku,12*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(5*rozmiar_bloku,7*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(7*rozmiar_bloku,12*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(8*rozmiar_bloku,12*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(12*rozmiar_bloku,10*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(13*rozmiar_bloku,10*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(14*rozmiar_bloku,10*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(15*rozmiar_bloku,10*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(16*rozmiar_bloku,10*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(tekstura_tabletki,new Vector2(4*rozmiar_bloku,(float)14.25*rozmiar_bloku),1,(float)0.5));
+                    Uzywki.Add(new Uzywka(tekstura_tabletki,new Vector2(5*rozmiar_bloku,14*rozmiar_bloku),1,(float)0.5));
+                    Uzywki.Add(new Uzywka(tekstura_tabletki,new Vector2(4*rozmiar_bloku,(float)13.25*rozmiar_bloku),1,(float)0.5));
+                    Uzywki.Add(new Uzywka(tekstura_tabletki,new Vector2(5*rozmiar_bloku,13*rozmiar_bloku),1,(float)0.5));
+                    Uzywki.Add(new Uzywka(tekstura_tabletki,new Vector2(4*rozmiar_bloku,(float)12.25*rozmiar_bloku),1,(float)0.5));
+                    Uzywki.Add(new Uzywka(tekstura_tabletki,new Vector2(5*rozmiar_bloku,12*rozmiar_bloku),1,(float)0.5));
+                    Uzywki.Add(new Uzywka(tekstura_tabletki,new Vector2(5*rozmiar_bloku,7*rozmiar_bloku),1,(float)0.5));
+                    Uzywki.Add(new Uzywka(tekstura_tabletki,new Vector2(7*rozmiar_bloku,(float)12.25*rozmiar_bloku),1,(float)0.5));
+                    Uzywki.Add(new Uzywka(tekstura_tabletki,new Vector2(8*rozmiar_bloku,(float)12.25*rozmiar_bloku),1,(float)0.5));
+                    Uzywki.Add(new Uzywka(tekstura_tabletki,new Vector2(12*rozmiar_bloku,(float)10.25*rozmiar_bloku),1,(float)0.5));
+                    Uzywki.Add(new Uzywka(tekstura_tabletki,new Vector2(13*rozmiar_bloku,(float)10.25*rozmiar_bloku),1,(float)0.5));
+                    Uzywki.Add(new Uzywka(tekstura_tabletki,new Vector2(14*rozmiar_bloku,(float)10.25*rozmiar_bloku),1,(float)0.5));
+                    Uzywki.Add(new Uzywka(tekstura_tabletki,new Vector2(15*rozmiar_bloku,(float)10.25*rozmiar_bloku),1,(float)0.5));
+                    Uzywki.Add(new Uzywka(tekstura_tabletki,new Vector2(16*rozmiar_bloku,(float)10.25*rozmiar_bloku),1,(float)0.5));
 
-                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(5*rozmiar_bloku,1*rozmiar_bloku),150,1,1));
-                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(7*rozmiar_bloku,8*rozmiar_bloku),150,1,1));
-                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(12*rozmiar_bloku,8*rozmiar_bloku),150,1,1));
-                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(17*rozmiar_bloku,4*rozmiar_bloku),150,1,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_cukierka, new Vector2(5*rozmiar_bloku,1*rozmiar_bloku),150,1,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_cukierka, new Vector2(7*rozmiar_bloku,8*rozmiar_bloku),150,1,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_cukierka, new Vector2(12*rozmiar_bloku,8*rozmiar_bloku),150,1,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_cukierka, new Vector2(17*rozmiar_bloku,4*rozmiar_bloku),150,1,1));
 
 
 
@@ -456,26 +476,26 @@ public class Main : Game {
 
                 if (!obiekty_dodane) {
 
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(17*rozmiar_bloku,14*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(18*rozmiar_bloku,14*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(3*rozmiar_bloku,12*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(4*rozmiar_bloku,4*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(5*rozmiar_bloku,4*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(7*rozmiar_bloku,4*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(8*rozmiar_bloku,4*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(10*rozmiar_bloku,7*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(11*rozmiar_bloku,7*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(9*rozmiar_bloku,14*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(10*rozmiar_bloku,14*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(11*rozmiar_bloku,14*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(12*rozmiar_bloku,14*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(13*rozmiar_bloku,14*rozmiar_bloku),1,1));
-                    Uzywki.Add(new Uzywka(tekstura_alkoholu,new Vector2(16*rozmiar_bloku,9*rozmiar_bloku),1,1));
+                    Uzywki.Add(new Uzywka(energetyk,new Vector2((float)17.25*rozmiar_bloku,14*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(energetyk,new Vector2((float)18.25*rozmiar_bloku,14*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(energetyk,new Vector2((float)3.25*rozmiar_bloku,12*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(energetyk,new Vector2((float)4.25*rozmiar_bloku,4*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(energetyk,new Vector2((float)5.25*rozmiar_bloku,4*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(energetyk,new Vector2((float)7.25*rozmiar_bloku,4*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(energetyk,new Vector2((float)8.25*rozmiar_bloku,4*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(energetyk,new Vector2((float)10.25*rozmiar_bloku,7*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(energetyk,new Vector2((float)11.25*rozmiar_bloku,7*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(energetyk,new Vector2((float)9.25*rozmiar_bloku,14*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(energetyk,new Vector2((float)10.25*rozmiar_bloku,14*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(energetyk,new Vector2((float)11.25*rozmiar_bloku,14*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(energetyk,new Vector2((float)12.25*rozmiar_bloku,14*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(energetyk,new Vector2((float)13.25*rozmiar_bloku,14*rozmiar_bloku),(float)0.5,1));
+                    Uzywki.Add(new Uzywka(energetyk,new Vector2((float)16.25*rozmiar_bloku,9*rozmiar_bloku),(float)0.5,1));
 
-                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(4*rozmiar_bloku,8*rozmiar_bloku),200,1,1));
-                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(14*rozmiar_bloku,4*rozmiar_bloku),200,1,1));
-                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(18*rozmiar_bloku,1*rozmiar_bloku),200,1,1));
-                    Pozytywne_obiekty.Add(new PozytywnyObiekt(tekstura_wody, new Vector2(9*rozmiar_bloku,13*rozmiar_bloku),200,1,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(sok_pomaranczowy, new Vector2((float)4.25*rozmiar_bloku,8*rozmiar_bloku),200,(float)0.5,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(sok_pomaranczowy, new Vector2((float)14.25*rozmiar_bloku,4*rozmiar_bloku),200,(float)0.5,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(sok_pomaranczowy, new Vector2((float)18.25*rozmiar_bloku,1*rozmiar_bloku),200,(float)0.5,1));
+                    Pozytywne_obiekty.Add(new PozytywnyObiekt(sok_pomaranczowy, new Vector2((float)9.25*rozmiar_bloku,13*rozmiar_bloku),200,(float)0.5,1));
 
 
 
@@ -801,7 +821,7 @@ public class Main : Game {
 
             case Sceny.POZIOM2:
 
-                _spriteBatch.Draw(tlo_poziom1,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
+                _spriteBatch.Draw(tlo_poziom2,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
                 _spriteBatch.Draw(animacja[ktora_klatka], gracz.obszar, Color.White);
 
                 foreach (var obiekt in Uzywki) {
@@ -839,7 +859,7 @@ public class Main : Game {
 
             case Sceny.POZIOM3:
 
-                _spriteBatch.Draw(tlo_poziom1,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
+                _spriteBatch.Draw(tlo_poziom3,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
                 _spriteBatch.Draw(animacja[ktora_klatka], gracz.obszar, Color.White);
 
                 foreach (var obiekt in Uzywki) {
@@ -877,7 +897,7 @@ public class Main : Game {
 
             case Sceny.POZIOM4:
 
-                _spriteBatch.Draw(tlo_poziom1,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
+                _spriteBatch.Draw(tlo_poziom4,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
                 _spriteBatch.Draw(animacja[ktora_klatka], gracz.obszar, Color.White);
 
                 foreach (var obiekt in Uzywki) {
@@ -915,7 +935,7 @@ public class Main : Game {
 
             case Sceny.POZIOM5:
 
-                _spriteBatch.Draw(tlo_poziom1,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
+                _spriteBatch.Draw(tlo_poziom5,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
                 _spriteBatch.Draw(animacja[ktora_klatka], gracz.obszar, Color.White);
 
                 foreach (var obiekt in Uzywki) {
@@ -1197,6 +1217,7 @@ public class Main : Game {
         isResetting = false;  
         wygrana = false;
         koniec_czasu = false;
+        
 
     }
 

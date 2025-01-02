@@ -65,3 +65,13 @@
 /home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/meta.xnb
 /home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/jablko.xnb
 /home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/papieros.xnb
+/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/banan.xnb
+/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/marihuana.xnb
+/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/cukierek.xnb
+/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/tabletka.xnb
+/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/tlo2.xnb
+/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/tlo3.xnb
+/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/tlo4.xnb
+/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/tlo5.xnb
+/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/energetyk.xnb
+/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/sok_pomaranczowy.xnb
