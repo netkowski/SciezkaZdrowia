@@ -60,9 +60,16 @@ public override void Update(GameTime gameTime) {
     
     if (((Keyboard.GetState().IsKeyDown(Keys.Right))||(Keyboard.GetState().IsKeyDown(Keys.D)))&&prawo) {
 
+        if (Main.spozyto_energetyk) {
+
+            Przyspieszenie.X = 0;
+        } else {
+
         if (Main.spozyto_alkohol == false) {
             if (Main.spozyto_papierosy == false){
+                if (Main.spozyto_energetyk == false){
                 Przyspieszenie.X = 4;
+                }
             } else {
 
                 Przyspieszenie.X = 1;
@@ -75,9 +82,14 @@ public override void Update(GameTime gameTime) {
         }
         
         poprzedni_kierunek = kierunek;
+        }
 
     } else if (((Keyboard.GetState().IsKeyDown(Keys.Left)||(Keyboard.GetState().IsKeyDown(Keys.A)))&&lewo)) {
 
+        if (Main.spozyto_energetyk){
+
+            Przyspieszenie.X = 0;
+        } else {
 
         if (Main.spozyto_alkohol == false) {
 
@@ -96,6 +108,7 @@ public override void Update(GameTime gameTime) {
 
 
         poprzedni_kierunek = kierunek;
+        }
         
     } else {
 
@@ -124,7 +137,6 @@ public override void Update(GameTime gameTime) {
 
         Przyspieszenie.Y = -13;
         skok = skok2 = false;
-        Main.jump_sfx.Play();
         if (Keyboard.GetState().IsKeyDown(Keys.W)){
             wcisnieto_W = true;
         }
@@ -164,8 +176,9 @@ public override void Update(GameTime gameTime) {
 
         if (Przyspieszenie.Y > 0 && pozycjaY_przed_kolizja < pozycja.Y){
 
+            if (!Main.spozyto_energetyk){
             skok = true; 
-
+            }
         }
 
         Przyspieszenie.Y = 0;

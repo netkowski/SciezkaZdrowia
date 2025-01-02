@@ -27,6 +27,7 @@ enum Sceny {
     POZIOM3,
     POZIOM4,
     POZIOM5,
+    PLANSZA,
     KONIEC
 }
 
@@ -36,7 +37,7 @@ public class Main : Game {
     public static float skalaX;
     public static float skalaY;
     public float skalaTekstu;
-    public static bool spozyto_alkohol,spozyto_papierosy;
+    public static bool spozyto_alkohol,spozyto_papierosy,spozyto_marihuane,spozyto_tabletke,spozyto_energetyk;
     public static Dictionary<Vector2, int> aktywnaMapa;
     public static Dictionary<Vector2,int> mapa1, mapa2, mapa3, mapa4, mapa5;
     private GraphicsDeviceManager _graphics;
@@ -58,6 +59,7 @@ public class Main : Game {
     private Texture2D tekstura_tabletki;
     private Texture2D tekstura_marihuany;
     private Texture2D energetyk;
+    private Texture2D plansza1,plansza2,plansza3,plansza4,plansza5;
     private Texture2D sok_pomaranczowy;
     private Texture2D serce;
     private List<Uzywka> Uzywki;
@@ -72,7 +74,9 @@ public class Main : Game {
     private SoundEffect punkt_sfx;
     private SoundEffect utrata_sfx;
     private SoundEffect levelup_sfx;
+    private SoundEffect wygrana_sfx;
     private bool nastepny_poziom = false;
+    private bool zagrano_dzwiek;
     private bool reset = false;
     private bool koniec = false;
     private bool isResetting = false;
@@ -80,8 +84,10 @@ public class Main : Game {
     private bool nowagra_hover,ustawienia_hover,informacje_hover,rozdzielczosc1_hover,rozdzielczosc2_hover,rozdzielczosc3_hover,menu_hover,wyjscie_hover;
     private bool koniec_czasu,wygrana;
     private int licznik;
+    private int poprzedni_poziom;
     private int timer_efektu;
     private int ktora_klatka;
+    private float czas;
     private int maxHeight = (int)(16*rozmiar_bloku);
     private int maxWidth = (int)(20*rozmiar_bloku);
     private int timer,licznik_sekund = 0;
@@ -129,6 +135,11 @@ public class Main : Game {
         tlo_poziom3 = Content.Load<Texture2D>("tlo3");
         tlo_poziom4 = Content.Load<Texture2D>("tlo4");
         tlo_poziom5 = Content.Load<Texture2D>("tlo5");
+        plansza1 = Content.Load<Texture2D>("plansza1");
+        plansza2 = Content.Load<Texture2D>("plansza2");
+        plansza3 = Content.Load<Texture2D>("plansza3");
+        plansza4 = Content.Load<Texture2D>("plansza4");
+        plansza5 = Content.Load<Texture2D>("plansza5");
 
         animacja[0] = Content.Load<Texture2D>("front1");  
         animacja[1] = Content.Load<Texture2D>("front2"); 
@@ -155,6 +166,7 @@ public class Main : Game {
         punkt_sfx = Content.Load<SoundEffect>("Audio/punkt");
         utrata_sfx = Content.Load<SoundEffect>("Audio/utrata");
         levelup_sfx = Content.Load<SoundEffect>("Audio/level_up");
+        wygrana_sfx = Content.Load<SoundEffect>("Audio/wygrana");
         MediaPlayer.Volume = 0;
         MediaPlayer.IsRepeating = true;
 
@@ -292,6 +304,8 @@ public class Main : Game {
 
             case Sceny.POZIOM1:
 
+                poprzedni_poziom = 1;
+
                 if (!reset) {
 
                     aktywnascena = Sceny.POZIOM1;  
@@ -339,6 +353,8 @@ public class Main : Game {
 
             case Sceny.POZIOM2:
 
+                poprzedni_poziom = 2;
+
                 if (!reset) {
 
                     aktywnaMapa = mapa2;
@@ -359,6 +375,7 @@ public class Main : Game {
                 }
 
                 Powrot_do_main_menu();
+                Koniec();
 
                 if (!obiekty_dodane) {
 
@@ -388,6 +405,8 @@ public class Main : Game {
 
             case Sceny.POZIOM3:
 
+                poprzedni_poziom = 3;
+
                 if (!reset) {
 
                     aktywnaMapa = mapa3;
@@ -408,6 +427,7 @@ public class Main : Game {
                 }
 
                 Powrot_do_main_menu();
+                Koniec();
 
                 if (!obiekty_dodane) {
 
@@ -432,6 +452,8 @@ public class Main : Game {
 
             case Sceny.POZIOM4:
 
+                poprzedni_poziom = 4;
+
                 if (!reset) {
 
                     aktywnaMapa = mapa4;
@@ -452,6 +474,7 @@ public class Main : Game {
                 }
 
                 Powrot_do_main_menu();
+                Koniec();
 
                 if (!obiekty_dodane) {
 
@@ -486,6 +509,8 @@ public class Main : Game {
         
             case Sceny.POZIOM5:
 
+                poprzedni_poziom = 5;
+
                 if (!reset) {
 
                     aktywnaMapa = mapa5;
@@ -505,6 +530,7 @@ public class Main : Game {
                 }
 
                 Powrot_do_main_menu();
+                Koniec();
 
                 if (!obiekty_dodane) {
 
@@ -579,6 +605,56 @@ public class Main : Game {
             Powrot_do_main_menu();
 
             break;
+            
+            case Sceny.PLANSZA:
+
+            if (poprzedni_poziom == 1) {
+                if(Keyboard.GetState().IsKeyDown(Keys.Space)) {
+
+                    aktywnascena = Sceny.POZIOM2;
+
+                }
+
+            }
+
+            if (poprzedni_poziom == 2) {
+                if(Keyboard.GetState().IsKeyDown(Keys.Space)) {
+
+                    aktywnascena = Sceny.POZIOM3;
+
+                }
+
+            }
+
+            if (poprzedni_poziom == 3) {
+                if(Keyboard.GetState().IsKeyDown(Keys.Space)) {
+
+                    aktywnascena = Sceny.POZIOM4;
+
+                }
+
+            }
+
+            if (poprzedni_poziom == 4) {
+                if(Keyboard.GetState().IsKeyDown(Keys.Space)) {
+
+                    aktywnascena = Sceny.POZIOM5;
+
+                }
+
+            }
+
+            if (poprzedni_poziom == 5) {
+                if(Keyboard.GetState().IsKeyDown(Keys.Space)) {
+
+                    aktywnascena = Sceny.MENU;
+
+                }
+
+            }
+
+
+            break;
 
         }
 
@@ -628,6 +704,13 @@ public class Main : Game {
             Uzywki.Remove(obiekt);
             Gracz.Zycie--;
 
+            if (aktywnascena == Sceny.POZIOM1) {
+
+                spozyto_marihuane = true;
+                timer_efektu = 0;
+
+            }
+
             if (aktywnascena == Sceny.POZIOM2) {
 
                 spozyto_papierosy = true;
@@ -641,14 +724,31 @@ public class Main : Game {
                 timer_efektu = 0;
 
             }
+
+            if (aktywnascena == Sceny.POZIOM4) {
+
+                spozyto_tabletke = true;
+                timer_efektu = 0;
+
+            }
+
+            if (aktywnascena == Sceny.POZIOM5) {
+
+                spozyto_energetyk = true;
+                timer_efektu = 0;
+
+            }
         
 
         }
 
-        if (timer_efektu == 5) {
+        if (timer_efektu == 7) {
 
             spozyto_alkohol = false;
             spozyto_papierosy = false;
+            spozyto_marihuane = false;
+            spozyto_tabletke = false;
+            spozyto_energetyk = false;
 
         }
 
@@ -668,6 +768,18 @@ public class Main : Game {
             licznik = 0;
 
         }
+
+        if (spozyto_marihuane) {
+            
+            if (Gracz.kierunek == 2){
+                Gracz.kierunek = 0;
+            } else {
+                Gracz.kierunek += 1;
+            }
+
+        }
+
+
 
         if (Gracz.kierunek == 0) {
 
@@ -747,6 +859,8 @@ public class Main : Game {
 
         GraphicsDevice.Clear(Color.Black);
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+
+        czas = (float)gameTime.TotalGameTime.TotalSeconds;
 
         switch (aktywnascena) {
 
@@ -930,8 +1044,11 @@ public class Main : Game {
 
             case Sceny.POZIOM4:
 
+
+
                 _spriteBatch.Draw(tlo_poziom4,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
                 _spriteBatch.Draw(animacja[ktora_klatka], gracz.obszar, Color.White);
+                
 
                 foreach (var obiekt in Uzywki) {
 
@@ -948,8 +1065,9 @@ public class Main : Game {
                     _spriteBatch.Draw(obiekt.tekstura, obiekt.obszar, Color.White);
 
                 }
-
+                if (!spozyto_tabletke) {
                 foreach (var tekstura in mapa4) {
+                    
 
                     Rectangle dest = new (
                         (int)(tekstura.Key.X * rozmiar_bloku*skalaX),
@@ -961,12 +1079,36 @@ public class Main : Game {
                     _spriteBatch.Draw(skrzynia,dest,Color.White);
 
                 }
+                } else {
+                foreach (var tekstura in mapa4) {
+                    
+                    float przesuniecie = (float)Math.Sin(tekstura.Key.X + czas * 5) * 10;
+
+                    Rectangle dest = new Rectangle(
+                        (int)(tekstura.Key.X * rozmiar_bloku * skalaX),
+                        (int)(tekstura.Key.Y * rozmiar_bloku * skalaY + przesuniecie),
+                        (int)(rozmiar_bloku * skalaX),
+                        (int)(rozmiar_bloku * skalaY)
+                    );
+
+                    _spriteBatch.Draw(skrzynia, dest, Color.White);
+                }
+
+                Color mglaKolor = new Color(255, 0, 255, 100); 
+
+                Rectangle mglaProstokat = new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+                _spriteBatch.Draw(tlo_poziom4, mglaProstokat, mglaKolor);
+
+
+                }
 
                 Info_o_poziomie(4, 45);
 
             break;
 
             case Sceny.POZIOM5:
+
+
 
                 _spriteBatch.Draw(tlo_poziom5,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
                 _spriteBatch.Draw(animacja[ktora_klatka], gracz.obszar, Color.White);
@@ -987,6 +1129,8 @@ public class Main : Game {
 
                 }
 
+                if(!spozyto_energetyk) {
+
                 foreach (var tekstura in mapa5) {
 
                     Rectangle dest = new (
@@ -998,6 +1142,23 @@ public class Main : Game {
 
                     _spriteBatch.Draw(skrzynia,dest,Color.White);
 
+                }
+
+                } else {
+
+                    foreach (var tekstura in mapa5) {
+                    
+                    float przesuniecie = (float)Math.Sin(tekstura.Key.X + czas * 5000) * 4;
+
+                    Rectangle dest = new Rectangle(
+                        (int)(tekstura.Key.X * rozmiar_bloku * skalaX),
+                        (int)(tekstura.Key.Y * rozmiar_bloku * skalaY + przesuniecie),
+                        (int)(rozmiar_bloku * skalaX),
+                        (int)(rozmiar_bloku * skalaY)
+                    );
+
+                    _spriteBatch.Draw(skrzynia, dest, Color.White);
+                }
                 }
 
                 Info_o_poziomie(5, 60);
@@ -1033,7 +1194,11 @@ public class Main : Game {
             _spriteBatch.DrawString(font, "PUNKTOW", new Vector2(920 * skalaX, 600 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.4), SpriteEffects.None, 0);
 
             if (wygrana) {
-
+                MediaPlayer.Volume = 0;
+                if (!zagrano_dzwiek){
+                wygrana_sfx.Play();
+                zagrano_dzwiek = true;
+                }
                 GraphicsDevice.Clear(Color.Green);
                 _spriteBatch.DrawString(font, "WYGRANA !!!", new Vector2(450 * skalaX, 350 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.5), SpriteEffects.None, 0);
 
@@ -1182,9 +1347,9 @@ public class Main : Game {
     }
 
     void Koniec() {
-
-        if (koniec) {
         
+        if (koniec) {
+            Reset_poziomu();
             aktywnascena = Sceny.KONIEC;
             koniec = false;
             MediaPlayer.Volume = 0f;
@@ -1204,7 +1369,8 @@ public class Main : Game {
         nastepny_poziom = false;
         wygrana = false;
         koniec_czasu = false;
-
+        zagrano_dzwiek = false;
+        spozyto_alkohol=spozyto_energetyk=spozyto_marihuane=spozyto_tabletke=spozyto_papierosy=false;
     }
     void poziom_zycia() {
 
