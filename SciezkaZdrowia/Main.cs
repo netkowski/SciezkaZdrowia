@@ -660,6 +660,11 @@ public class Main : Game {
 
         }
 
+        if (Gracz.przegrana) {
+            koniec = true;
+            Koniec();
+        }
+
         List<Uzywka> ZebraneUzywki = new();
         List<PozytywnyObiekt> ZebranePozytywne = new();
 
@@ -1437,6 +1442,7 @@ public class Main : Game {
         if (Gracz.Zycie == 0) {
 
             koniec = true;
+            Koniec();
 
         }
 

@@ -17,6 +17,7 @@ namespace SciezkaZdrowia {
 
     internal class Gracz : Obiekt{
         public static int Zycie;
+        public static bool przegrana=false;
         public static int Punkty = 0;
         public static int kierunek;
         private List<Rectangle> kolizje;
@@ -48,6 +49,17 @@ namespace SciezkaZdrowia {
         }
 
 public override void Update(GameTime gameTime) {
+
+    if (Zycie < 1) {
+        przegrana = true;
+        Gracz.Zycie = 3;
+    } else {
+
+        przegrana = false;
+
+    }
+
+    
 
     Aktualizacja_Kolizji();
 
