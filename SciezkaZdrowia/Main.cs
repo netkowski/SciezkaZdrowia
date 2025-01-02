@@ -320,8 +320,9 @@ public class Main : Game {
                     obiekty_dodane = false;
                     nastepny_poziom = false;
                     reset = false;
-                    aktywnascena = Sceny.POZIOM2;
                     levelup_sfx.Play();
+                    aktywnascena = Sceny.PLANSZA;
+                    
                     
                 }
 
@@ -368,7 +369,7 @@ public class Main : Game {
                     obiekty_dodane = false;
                     nastepny_poziom = false;
                     reset = false;
-                    aktywnascena = Sceny.POZIOM3;
+                    aktywnascena = Sceny.PLANSZA;
                     levelup_sfx.Play();
 
                     
@@ -420,7 +421,7 @@ public class Main : Game {
                     obiekty_dodane = false;
                     nastepny_poziom = false;
                     reset = false;
-                    aktywnascena = Sceny.POZIOM4;
+                    aktywnascena = Sceny.PLANSZA;
                     levelup_sfx.Play();
 
                     
@@ -467,7 +468,7 @@ public class Main : Game {
                     obiekty_dodane = false;
                     nastepny_poziom = false;
                     reset = false;
-                    aktywnascena = Sceny.POZIOM5;
+                    aktywnascena = Sceny.PLANSZA;
                     levelup_sfx.Play();
 
                     
@@ -524,7 +525,8 @@ public class Main : Game {
                     obiekty_dodane = false;
                     nastepny_poziom = false;
                     reset = false;
-                    aktywnascena = Sceny.KONIEC;
+                    levelup_sfx.Play();
+                    aktywnascena = Sceny.PLANSZA;
                     wygrana = true;
                     
                 }
@@ -647,7 +649,7 @@ public class Main : Game {
             if (poprzedni_poziom == 5) {
                 if(Keyboard.GetState().IsKeyDown(Keys.Space)) {
 
-                    aktywnascena = Sceny.MENU;
+                    aktywnascena = Sceny.KONIEC;
 
                 }
 
@@ -1289,6 +1291,43 @@ public class Main : Game {
 
             _spriteBatch.DrawString(font, "POWROT DO MENU", new Vector2(900 * skalaX, 950 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);           
             menu_hover = false;
+
+            }
+
+            break;
+
+            case Sceny.PLANSZA:
+
+            if (poprzedni_poziom == 1){
+
+                _spriteBatch.Draw(plansza1,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
+
+            }
+
+
+            if (poprzedni_poziom == 2){
+
+                _spriteBatch.Draw(plansza2,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
+
+            }
+
+            if (poprzedni_poziom == 3){
+
+                _spriteBatch.Draw(plansza3,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
+
+            }
+
+
+            if (poprzedni_poziom == 4){
+
+                _spriteBatch.Draw(plansza4,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
+
+            }
+
+
+            if (poprzedni_poziom == 5){
+
+                _spriteBatch.Draw(plansza5,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
 
             }
 

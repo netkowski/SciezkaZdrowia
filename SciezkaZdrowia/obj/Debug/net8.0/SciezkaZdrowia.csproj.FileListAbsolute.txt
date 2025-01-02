@@ -85,3 +85,8 @@
 /home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/Audio/utrata.xnb
 /home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/Audio/level_up.xnb
 /home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/Audio/wygrana.xnb
+/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/plansza1.xnb
+/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/plansza2.xnb
+/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/plansza3.xnb
+/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/plansza4.xnb
+/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/bin/Debug/net8.0/Content/plansza5.xnb

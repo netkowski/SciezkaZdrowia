@@ -37,6 +37,18 @@
 /processorParam:TextureFormat=Color
 /build:../../../../../../../Downloads/box.png;box.png
 
+#begin ../../../../../../../Downloads/plansza5.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../../../../../../Downloads/plansza5.png;plansza5.png
+
 #begin ../../../../../../../Downloads/woda.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -271,18 +283,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:plansza4.png
-
-#begin plansza5.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:plansza5.png
 
 #begin prawo1.png
 /importer:TextureImporter
