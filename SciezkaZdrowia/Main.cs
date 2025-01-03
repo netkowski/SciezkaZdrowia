@@ -779,14 +779,16 @@ public class Main : Game {
 
         }
         if ((aktywnascena == Sceny.POZIOM1)||(aktywnascena == Sceny.POZIOM2)||(aktywnascena == Sceny.POZIOM3)||(aktywnascena == Sceny.POZIOM4)||(aktywnascena == Sceny.POZIOM5)||(aktywnascena == Sceny.PLANSZA)) {
-        MediaPlayer.Volume = poziom_dzwieku;
-        SoundEffect.MasterVolume = poziom_dzwieku;
+
+            MediaPlayer.Volume = poziom_dzwieku;
+            SoundEffect.MasterVolume = poziom_dzwieku;
+            
         } else {
         
         if ((aktywnascena == Sceny.KONIEC)) {
 
-        MediaPlayer.Volume = 0f;
-        SoundEffect.MasterVolume = poziom_dzwieku;
+            MediaPlayer.Volume = 0f;
+            SoundEffect.MasterVolume = poziom_dzwieku;
 
         }   else {
 
@@ -796,8 +798,6 @@ public class Main : Game {
             }
 
         }
-
-        Console.WriteLine(poziom_dzwieku);
 
         if (timer_efektu == 6) {
 
