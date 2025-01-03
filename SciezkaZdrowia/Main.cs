@@ -49,6 +49,7 @@ public class Main : Game {
     private Texture2D tlo_poziom4;
     private Texture2D tlo_poziom5;
     private int czas;
+    private int rozdzielczosc =1;
     private Texture2D skrzynia;
     private Texture2D meta;
     private Texture2D tekstura_alkoholu;
@@ -85,7 +86,7 @@ public class Main : Game {
     private bool nowagra_hover,ustawienia_hover,informacje_hover,rozdzielczosc1_hover,rozdzielczosc2_hover,rozdzielczosc3_hover,menu_hover,wyjscie_hover,dzwiek1_hover,dzwiek2_hover,dzwiek3_hover;
     private bool koniec_czasu,wygrana;
     private int licznik;
-    private float poziom_dzwieku = 0f;
+    private float poziom_dzwieku=0.5f;
     private int poprzedni_poziom;
     private int timer_efektu;
     private int ktora_klatka;
@@ -577,6 +578,7 @@ public class Main : Game {
                 _graphics.PreferredBackBufferHeight = (int)(16*rozmiar_bloku);
                 _graphics.PreferredBackBufferWidth = (int)(20*rozmiar_bloku);
                 _graphics.ApplyChanges();
+                rozdzielczosc = 1;
 
             }
 
@@ -585,6 +587,7 @@ public class Main : Game {
                 _graphics.PreferredBackBufferHeight = (int)(8*rozmiar_bloku);
                 _graphics.PreferredBackBufferWidth = (int)(10*rozmiar_bloku);
                 _graphics.ApplyChanges();
+                rozdzielczosc = 2;
 
             }
 
@@ -593,6 +596,7 @@ public class Main : Game {
                 _graphics.PreferredBackBufferHeight = (int)(4*rozmiar_bloku);
                 _graphics.PreferredBackBufferWidth = (int)(5*rozmiar_bloku);
                 _graphics.ApplyChanges();
+                rozdzielczosc = 3;
 
             }
 
@@ -602,13 +606,13 @@ public class Main : Game {
 
             }
 
-            if ((mouseState.LeftButton == ButtonState.Pressed)&&(dzwiek1_hover)) {
+            if ((mouseState.LeftButton == ButtonState.Pressed)&&(dzwiek2_hover)) {
 
                 poziom_dzwieku = 0.5f;                
 
             }
 
-            if ((mouseState.LeftButton == ButtonState.Pressed)&&(dzwiek1_hover)) {
+            if ((mouseState.LeftButton == ButtonState.Pressed)&&(dzwiek3_hover)) {
 
                 poziom_dzwieku = 1f;                
 
@@ -774,9 +778,26 @@ public class Main : Game {
         
 
         }
-
+        if ((aktywnascena == Sceny.POZIOM1)||(aktywnascena == Sceny.POZIOM2)||(aktywnascena == Sceny.POZIOM3)||(aktywnascena == Sceny.POZIOM4)||(aktywnascena == Sceny.POZIOM5)||(aktywnascena == Sceny.PLANSZA)) {
         MediaPlayer.Volume = poziom_dzwieku;
         SoundEffect.MasterVolume = poziom_dzwieku;
+        } else {
+        
+        if ((aktywnascena == Sceny.KONIEC)) {
+
+        MediaPlayer.Volume = 0f;
+        SoundEffect.MasterVolume = poziom_dzwieku;
+
+        }   else {
+
+                MediaPlayer.Volume = 0f;
+                SoundEffect.MasterVolume = 0f;
+
+            }
+
+        }
+
+        Console.WriteLine(poziom_dzwieku);
 
         if (timer_efektu == 6) {
 
@@ -1186,7 +1207,7 @@ public class Main : Game {
 
                     foreach (var tekstura in mapa5) {
                     
-                    float przesuniecie = (float)Math.Sin(tekstura.Key.X + czas * 5000) * 4;
+                    float przesuniecie = (float)Math.Sin(tekstura.Key.X + czas_sinus * 5000) * 4;
 
                     Rectangle dest = new Rectangle(
                         (int)(tekstura.Key.X * rozmiar_bloku * skalaX),
@@ -1208,6 +1229,20 @@ public class Main : Game {
             menu = new Rectangle ((int)(900*skalaX),(int)(950*skalaY),(int)(335*skalaX),(int)(33*skalaY));
 
             _spriteBatch.DrawString(font, "INFORMACJE", new Vector2(340 * skalaX, 70 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.7), SpriteEffects.None, 0);
+
+            _spriteBatch.DrawString(font, "ABY UKONCZYC POZIOM MUSISZ DOTRZEC DO METY W", new Vector2(20 * skalaX, 180 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.35), SpriteEffects.None, 0);
+            _spriteBatch.DrawString(font, "WYZNACZONYM CZASIE.", new Vector2(20 * skalaX, 230 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.35), SpriteEffects.None, 0);
+            _spriteBatch.DrawString(font, "PORUSZAJ SIE POSTACIA ZA POMOCA STRZALEK LUB", new Vector2(20 * skalaX, 310 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.35), SpriteEffects.None, 0);
+            _spriteBatch.DrawString(font, "KLAWISZY WSAD.", new Vector2(20 * skalaX, 360 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.35), SpriteEffects.None, 0);
+            _spriteBatch.DrawString(font, "UNIKAJ PO DRODZE UZYWEK, KTORE UTRUDNIAJA GRE", new Vector2(20 * skalaX, 440 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.35), SpriteEffects.None, 0);
+            _spriteBatch.DrawString(font, "I ZABIERAJA ZYCIE.", new Vector2(20 * skalaX, 490 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.35), SpriteEffects.None, 0);
+            _spriteBatch.DrawString(font, "ZBIERAJ ZDROWE ALTERNATYWY, ABY DOSTAC PUNKTY", new Vector2(20 * skalaX, 570 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.35), SpriteEffects.None, 0);
+            _spriteBatch.DrawString(font, "GRA KONCZY SIE PO UTRACIE WSZYSTKICH ZYC", new Vector2(20 * skalaX, 650 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.35), SpriteEffects.None, 0);
+            _spriteBatch.DrawString(font, "PRZEJDZ WSZYSTKIE POZIOMY BY WYGRAC, UZBIERAJ", new Vector2(20 * skalaX, 730 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.35), SpriteEffects.None, 0);
+            _spriteBatch.DrawString(font, "PRZY TYM JAK NAJWIECEJ PUNKTOW", new Vector2(20 * skalaX, 770 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.35), SpriteEffects.None, 0);
+            _spriteBatch.DrawString(font, "POWODZENIA !!!", new Vector2(480 * skalaX, 870 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.35), SpriteEffects.None, 0);
+
+
 
             if (menu.Contains(pozycja_myszki)) {
 
@@ -1297,6 +1332,12 @@ public class Main : Game {
 
             }
 
+            if (rozdzielczosc == 1) {
+
+            _spriteBatch.DrawString(font, "1280 X 1024", new Vector2(500 * skalaX, 320 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+
+            }
+
             if (rozdzielczosc2.Contains(pozycja_myszki)) {
 
             _spriteBatch.DrawString(font, "640 X 512", new Vector2(525 * skalaX, 380 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
@@ -1309,6 +1350,12 @@ public class Main : Game {
 
             }
 
+            if (rozdzielczosc == 2) {
+
+            _spriteBatch.DrawString(font, "640 X 512", new Vector2(525 * skalaX, 380 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+
+            }
+
             if (rozdzielczosc3.Contains(pozycja_myszki)) {
 
             _spriteBatch.DrawString(font, "320 X 256", new Vector2(525 * skalaX, 440 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
@@ -1318,6 +1365,12 @@ public class Main : Game {
 
             _spriteBatch.DrawString(font, "320 X 256", new Vector2(525 * skalaX, 440 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);           
             rozdzielczosc3_hover = false;
+
+            }
+
+            if (rozdzielczosc == 3) {
+
+            _spriteBatch.DrawString(font, "320 X 256", new Vector2(525 * skalaX, 440 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
 
             }
 
@@ -1335,6 +1388,13 @@ public class Main : Game {
 
             }
 
+            if (poziom_dzwieku == 0) {
+
+            _spriteBatch.DrawString(font, "0 %", new Vector2(600 * skalaX, 620 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+
+
+            }
+
             if (dzwiek2.Contains(pozycja_myszki)) {
 
             _spriteBatch.DrawString(font, "50 %", new Vector2(586 * skalaX, 680 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
@@ -1344,6 +1404,12 @@ public class Main : Game {
 
             _spriteBatch.DrawString(font, "50 %", new Vector2(586 * skalaX, 680 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
             dzwiek2_hover = false;
+
+            }
+
+            if (poziom_dzwieku == 0.5f) {
+
+            _spriteBatch.DrawString(font, "50 %", new Vector2(586 * skalaX, 680 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
 
             }
 
@@ -1357,6 +1423,12 @@ public class Main : Game {
             _spriteBatch.DrawString(font, "100 %", new Vector2(573 * skalaX, 740 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);           
             dzwiek3_hover = false;
 
+            }
+
+            if (poziom_dzwieku == 1f) {
+
+            _spriteBatch.DrawString(font, "100 %", new Vector2(573 * skalaX, 740 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+                
             }
 
             if (menu.Contains(pozycja_myszki)) {
