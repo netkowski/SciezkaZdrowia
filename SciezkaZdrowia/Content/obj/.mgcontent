@@ -6,6 +6,10 @@
   <SourceFiles>
     <File>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/../../../../../../../Downloads/alkohol.png</File>
     <File>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/../../../../../../../Downloads/box.png</File>
+    <File>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/../../../../../../../Downloads/plansza1.png</File>
+    <File>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/../../../../../../../Downloads/plansza2.png</File>
+    <File>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/../../../../../../../Downloads/plansza3.png</File>
+    <File>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/../../../../../../../Downloads/plansza4.png</File>
     <File>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/../../../../../../../Downloads/plansza5.png</File>
     <File>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/../../../../../../../Downloads/woda.png</File>
     <File>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/Audio/koniec.mp3</File>
@@ -26,10 +30,6 @@
     <File>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/marihuana.png</File>
     <File>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/meta.png</File>
     <File>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/papieros.png</File>
-    <File>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/plansza1.png</File>
-    <File>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/plansza2.png</File>
-    <File>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/plansza3.png</File>
-    <File>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/plansza4.png</File>
     <File>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/prawo1.png</File>
     <File>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/prawo2.png</File>
     <File>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/serce.png</File>
@@ -44,12 +44,12 @@
   <DestFiles>
     <File>alkohol.png</File>
     <File>box.png</File>
+    <File>plansza1.png</File>
+    <File>plansza2.png</File>
+    <File>plansza3.png</File>
+    <File>plansza4.png</File>
     <File>plansza5.png</File>
     <File>woda.png</File>
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

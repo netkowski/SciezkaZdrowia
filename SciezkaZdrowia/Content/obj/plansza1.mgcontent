@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/plansza1.png</SourceFile>
-  <SourceTime>2025-01-02T22:41:58.0716565+01:00</SourceTime>
+  <SourceFile>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/../../../../../../../Downloads/plansza1.png</SourceFile>
+  <SourceTime>2025-01-03T01:52:15.1063395+01:00</SourceTime>
   <DestFile>/home/netkoski/moje/studia/JPWP/projekt_programowanie/Monogame_Sciezka_Zdrowia/SciezkaZdrowia/Content/bin/plansza1.xnb</DestFile>
-  <DestTime>2025-01-02T23:03:13.2028119+01:00</DestTime>
+  <DestTime>2025-01-03T01:53:25.3453455+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2024-08-16T19:05:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

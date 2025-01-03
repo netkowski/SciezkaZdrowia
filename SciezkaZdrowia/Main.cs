@@ -48,6 +48,7 @@ public class Main : Game {
     private Texture2D tlo_poziom3;
     private Texture2D tlo_poziom4;
     private Texture2D tlo_poziom5;
+    private int czas;
     private Texture2D skrzynia;
     private Texture2D meta;
     private Texture2D tekstura_alkoholu;
@@ -68,7 +69,7 @@ public class Main : Game {
     private Obiekt gracz;
     private Sceny aktywnascena;
     private SpriteFont font;
-    private Rectangle pozycja_myszki,nowagra,ustawienia,informacje,rozdzielczosc1,rozdzielczosc2,rozdzielczosc3,menu,wyjscie;
+    private Rectangle pozycja_myszki,nowagra,ustawienia,informacje,rozdzielczosc1,rozdzielczosc2,rozdzielczosc3,menu,wyjscie,dzwiek1,dzwiek2,dzwiek3;
     private Song theme;
     private SoundEffect koniec_sfx;
     private SoundEffect punkt_sfx;
@@ -81,17 +82,18 @@ public class Main : Game {
     private bool koniec = false;
     private bool isResetting = false;
     private bool obiekty_dodane = false;
-    private bool nowagra_hover,ustawienia_hover,informacje_hover,rozdzielczosc1_hover,rozdzielczosc2_hover,rozdzielczosc3_hover,menu_hover,wyjscie_hover;
+    private bool nowagra_hover,ustawienia_hover,informacje_hover,rozdzielczosc1_hover,rozdzielczosc2_hover,rozdzielczosc3_hover,menu_hover,wyjscie_hover,dzwiek1_hover,dzwiek2_hover,dzwiek3_hover;
     private bool koniec_czasu,wygrana;
     private int licznik;
+    private float poziom_dzwieku = 0f;
     private int poprzedni_poziom;
     private int timer_efektu;
     private int ktora_klatka;
-    private float czas;
+    private float czas_sinus;
     private int maxHeight = (int)(16*rozmiar_bloku);
     private int maxWidth = (int)(20*rozmiar_bloku);
     private int timer,licznik_sekund = 0;
-    private int limit_czasu;
+    private int limit_czasu=0;
     
     
     public Main() {
@@ -568,6 +570,8 @@ public class Main : Game {
 
             case Sceny.USTAWIENIA:
 
+            MediaPlayer.Volume = 0f;
+
             if ((mouseState.LeftButton == ButtonState.Pressed)&&(rozdzielczosc1_hover)) {
 
                 _graphics.PreferredBackBufferHeight = (int)(16*rozmiar_bloku);
@@ -592,17 +596,39 @@ public class Main : Game {
 
             }
 
+            if ((mouseState.LeftButton == ButtonState.Pressed)&&(dzwiek1_hover)) {
+
+                poziom_dzwieku = 0f;                
+
+            }
+
+            if ((mouseState.LeftButton == ButtonState.Pressed)&&(dzwiek1_hover)) {
+
+                poziom_dzwieku = 0.5f;                
+
+            }
+
+            if ((mouseState.LeftButton == ButtonState.Pressed)&&(dzwiek1_hover)) {
+
+                poziom_dzwieku = 1f;                
+
+            }
+
             Powrot_do_main_menu();
 
             break;
 
             case Sceny.INFORMACJE:
 
+            MediaPlayer.Volume = 0f;
+
             Powrot_do_main_menu();
 
             break;
 
             case Sceny.KONIEC:
+
+            MediaPlayer.Volume = 0f;
 
             Powrot_do_main_menu();
 
@@ -749,7 +775,10 @@ public class Main : Game {
 
         }
 
-        if (timer_efektu == 7) {
+        MediaPlayer.Volume = poziom_dzwieku;
+        SoundEffect.MasterVolume = poziom_dzwieku;
+
+        if (timer_efektu == 6) {
 
             spozyto_alkohol = false;
             spozyto_papierosy = false;
@@ -858,6 +887,8 @@ public class Main : Game {
         skalaY = (float)Window.ClientBounds.Height/(16*rozmiar_bloku);
         skalaX = (float)Window.ClientBounds.Width/(20*rozmiar_bloku);  
 
+
+
         base.Update(gameTime);
 
     }
@@ -867,7 +898,7 @@ public class Main : Game {
         GraphicsDevice.Clear(Color.Black);
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-        czas = (float)gameTime.TotalGameTime.TotalSeconds;
+        czas_sinus = (float)gameTime.TotalGameTime.TotalSeconds;
 
         switch (aktywnascena) {
 
@@ -1089,7 +1120,7 @@ public class Main : Game {
                 } else {
                 foreach (var tekstura in mapa4) {
                     
-                    float przesuniecie = (float)Math.Sin(tekstura.Key.X + czas * 5) * 10;
+                    float przesuniecie = (float)Math.Sin(tekstura.Key.X + czas_sinus * 5) * 10;
 
                     Rectangle dest = new Rectangle(
                         (int)(tekstura.Key.X * rozmiar_bloku * skalaX),
@@ -1246,6 +1277,9 @@ public class Main : Game {
             rozdzielczosc1 = new Rectangle ((int)(500*skalaX),(int)(320*skalaY),(int)(260*skalaX),(int)(33*skalaY) );
             rozdzielczosc2 = new Rectangle ((int)(525*skalaX),(int)(380*skalaY),(int)(200*skalaX),(int)(33*skalaY));
             rozdzielczosc3 = new Rectangle ((int)(525*skalaX),(int)(440*skalaY),(int)(200*skalaX),(int)(33*skalaY));
+            dzwiek1 = new Rectangle ((int)(600*skalaX),(int)(620*skalaY),(int)(60*skalaX),(int)(33*skalaY) );
+            dzwiek2 = new Rectangle ((int)(586*skalaX),(int)(680*skalaY),(int)(85*skalaX),(int)(33*skalaY));
+            dzwiek3 = new Rectangle ((int)(573*skalaX),(int)(740*skalaY),(int)(110*skalaX),(int)(33*skalaY));
             menu = new Rectangle ((int)(900*skalaX),(int)(950*skalaY),(int)(335*skalaX),(int)(33*skalaY));
 
             _spriteBatch.DrawString(font, "USTAWIENIA", new Vector2(340 * skalaX, 70 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.7), SpriteEffects.None, 0);
@@ -1284,6 +1318,44 @@ public class Main : Game {
 
             _spriteBatch.DrawString(font, "320 X 256", new Vector2(525 * skalaX, 440 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);           
             rozdzielczosc3_hover = false;
+
+            }
+
+            _spriteBatch.DrawString(font, "POZIOM GLOSNOSCI", new Vector2(370 * skalaX, 540 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.4), SpriteEffects.None, 0);
+
+            if (dzwiek1.Contains(pozycja_myszki)) {
+
+            _spriteBatch.DrawString(font, "0 %", new Vector2(600 * skalaX, 620 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+            dzwiek1_hover = true;
+
+            } else {
+
+            _spriteBatch.DrawString(font, "0 %", new Vector2(600 * skalaX, 620 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+            dzwiek1_hover = false;
+
+            }
+
+            if (dzwiek2.Contains(pozycja_myszki)) {
+
+            _spriteBatch.DrawString(font, "50 %", new Vector2(586 * skalaX, 680 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+            dzwiek2_hover = true;
+
+            } else {
+
+            _spriteBatch.DrawString(font, "50 %", new Vector2(586 * skalaX, 680 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+            dzwiek2_hover = false;
+
+            }
+
+            if (dzwiek3.Contains(pozycja_myszki)) {
+
+            _spriteBatch.DrawString(font, "100 %", new Vector2(573 * skalaX, 740 * skalaY), Color.Yellow, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);
+            dzwiek3_hover = true;
+
+            } else {
+
+            _spriteBatch.DrawString(font, "100 %", new Vector2(573 * skalaX, 740 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.3), SpriteEffects.None, 0);           
+            dzwiek3_hover = false;
 
             }
 
@@ -1344,15 +1416,20 @@ public class Main : Game {
 
         base.Draw(gameTime);
     }
-    void Info_o_poziomie(int nr, int limit_czasu) {
+    void Info_o_poziomie(int nr, int limit) {
 
-        int czas = limit_czasu-licznik_sekund;
+        limit_czasu = limit;
 
-        if (czas < 1) {
+        czas  = limit_czasu-licznik_sekund;
 
+        if (czas < 1 && limit_czasu != 0) {
+
+            koniec_czasu = true;
             czas = 0;
             Gracz.Zycie = 0;
-            koniec_czasu = true;
+            
+        } else {
+            koniec_czasu = false;
 
         }
 
@@ -1412,7 +1489,6 @@ public class Main : Game {
         obiekty_dodane = false;
         nastepny_poziom = false;
         wygrana = false;
-        koniec_czasu = false;
         zagrano_dzwiek = false;
         spozyto_alkohol=spozyto_energetyk=spozyto_marihuane=spozyto_tabletke=spozyto_papierosy=false;
     }
