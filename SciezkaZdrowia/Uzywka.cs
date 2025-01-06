@@ -13,9 +13,7 @@ namespace SciezkaZdrowia {
 
     internal class Uzywka : Obiektinnychrozmiarow {
 
-        public Uzywka(Texture2D tekstura, Vector2 pozycja, float szerokosc, float wysokosc) 
-            : base(tekstura, pozycja, szerokosc, wysokosc) {
-        }
+        public Uzywka(Texture2D tekstura, Vector2 pozycja, float szerokosc, float wysokosc) : base(tekstura, pozycja, szerokosc, wysokosc) {}
 
     }
 }

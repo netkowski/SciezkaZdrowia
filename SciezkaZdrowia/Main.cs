@@ -254,7 +254,6 @@ public class Main : Game {
         
         if (isResetting) return;
         
-
         timer += 1;
 
         if (timer % 60 == 0) {
@@ -268,16 +267,12 @@ public class Main : Game {
         var mouseState = Mouse.GetState();
         pozycja_myszki = new Rectangle(mouseState.X,mouseState.Y,1,1);
 
-       
-
         switch (aktywnascena) {
             
             case Sceny.MENU:
-
-                
+   
                 MediaPlayer.Play(theme);
                 
-
                 if ((mouseState.LeftButton == ButtonState.Pressed)&&(nowagra_hover)) {
 
                     PelnyResetGry();
@@ -728,7 +723,7 @@ public class Main : Game {
 
             obiekt.Update(gameTime);
 
-            if ((obiekt.obszar.Intersects(gracz.obszar))||Keyboard.GetState().IsKeyDown(Keys.K)) {
+            if ((obiekt.obszar.Intersects(gracz.obszar))) {
 
                 nastepny_poziom = true;
                
@@ -836,8 +831,6 @@ public class Main : Game {
 
         }
 
-
-
         if (Gracz.kierunek == 0) {
 
             ktora_klatka = 0;
@@ -907,8 +900,6 @@ public class Main : Game {
 
         skalaY = (float)Window.ClientBounds.Height/(16*rozmiar_bloku);
         skalaX = (float)Window.ClientBounds.Width/(20*rozmiar_bloku);  
-
-
 
         base.Update(gameTime);
 
@@ -1022,7 +1013,6 @@ public class Main : Game {
 
                 Info_o_poziomie(1, 30);
 
-
             break;
 
             case Sceny.POZIOM2:
@@ -1102,8 +1092,6 @@ public class Main : Game {
             break;
 
             case Sceny.POZIOM4:
-
-
 
                 _spriteBatch.Draw(tlo_poziom4,new Rectangle (0,0,(int)(20*rozmiar_bloku*Main.skalaX),(int)(16*rozmiar_bloku*Main.skalaY)), Color.White);
                 _spriteBatch.Draw(animacja[ktora_klatka], gracz.obszar, Color.White);
@@ -1241,8 +1229,6 @@ public class Main : Game {
             _spriteBatch.DrawString(font, "PRZEJDZ WSZYSTKIE POZIOMY BY WYGRAC, UZBIERAJ", new Vector2(20 * skalaX, 730 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.35), SpriteEffects.None, 0);
             _spriteBatch.DrawString(font, "PRZY TYM JAK NAJWIECEJ PUNKTOW", new Vector2(20 * skalaX, 770 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.35), SpriteEffects.None, 0);
             _spriteBatch.DrawString(font, "POWODZENIA !!!", new Vector2(480 * skalaX, 870 * skalaY), Color.White, 0, Vector2.Zero, (float)(skalaTekstu*0.35), SpriteEffects.None, 0);
-
-
 
             if (menu.Contains(pozycja_myszki)) {
 
@@ -1611,7 +1597,6 @@ public class Main : Game {
         wygrana = false;
         koniec_czasu = false;
         
-
     }
 
     private Dictionary<Vector2, int> LadowanieMapy(string sciezka) {

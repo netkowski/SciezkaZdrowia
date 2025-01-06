@@ -59,8 +59,6 @@ public override void Update(GameTime gameTime) {
 
     }
 
-    
-
     Aktualizacja_Kolizji();
 
     Obszar_gracza = new Rectangle(
@@ -237,12 +235,6 @@ private bool Kolizja(List<Rectangle> kolizje) {
 
     return false; 
 
-}
-
-public int poziom_zycia(){
-
-    return Zycie;
-    
 }
 
     }
