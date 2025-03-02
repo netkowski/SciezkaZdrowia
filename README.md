@@ -24,9 +24,6 @@ Contributions are welcome! Feel free to fork the repository, create a new branch
 ## Usage
 This project is free to use as long as proper credit is given. Please include my name in the credits if you use or modify the game.
 
-## Contact
-For any questions or feedback, feel free to open an issue or contact me via email: your.email@example.com.
-
 ---
 **Author:** netko$ki
 
